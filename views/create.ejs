@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous">
+    <title>
+        <%= title %>
+    </title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid" style="background-color: coral;">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/"><img src="../images/video-play.png" width="25px" height="25px" /></a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li id="title-word"><a href="/" style="color:white; font: 25px bold;">MyCinema <span class="sr-only">(current)</span></a></li>
+
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/register" style="color:white; font: 20px bold  ; "> <span class="glyphicon glyphicon-plus"></span>
+                                Register</a></li>
+                        <li><a href="/login" style="color:white; font: 20px bold;"><span class="glyphicon glyphicon-log-in"></span>
+                                Login</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+    </header>
+    <section>
+        <div class="container" ng-app="movies">
+            <div class="col-md-6 col-md-offset-3" style="border: 1px solid coral; border-radius: 10px;">
+                <h1 style="text-align: center; color: coral; font-family: Georgia, 'Times New Roman', Times, serif">Create
+                    Page</h1>
+                <form name="createForm" ng-validate="validationOptions" class="ng-pristine ng-isolate-scope ng-invalid ng-invalid-required"
+                    novalidate="novalidate">
+                    <div id="movie-form" class="col-md-10 col-md-offset-1">
+                        <div class="form-group">
+                            <label for="name" style="color: coral">Tên Bộ Phim</label>
+                            <input name="name" ng-model="name" type="text" class="form-control ng-pristine ng-empty ng-invalid ng-invalid-required ng-touched"
+                                id="name" placeholder="Tên bộ phim" required="" aria-required="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleSelect2" style="color: coral">Thể loại phim:</label>
+                            <select ng-options="genre for genre in genres" name="genre" class="required form-control ng-pristine ng-valid ng-not-empty valid ng-touched"
+                                id="genre" ng-model="genre" aria-required="true" aria-invalid="false">
+                                <option label="Hành Động" value="string:Hành Động" selected="selected">Hành Động</option>
+                                <option label="Kinh Dị" value="string:Kinh Dị">Kinh Dị</option>
+                                <option label="Tình Cảm" value="string:Tình Cảm">Tình Cảm</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="date" style="color: coral">Thời gian phát hành</label>
+                            <input type="text" class="form-control valid" id="datepicker" aria-invalid="false" ng-model="date" >
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleTextarea" style="color: coral">Nội dung mô tả</label>
+                            <textarea name="content" ng-model="content" class="form-control ng-pristine ng-valid ng-empty ng-touched"
+                                id="exampleTextarea" placeholder="Điền thông tin thêm về bộ phim, như diễn viên chính, nội dung bộ phim,..."
+                                rows="5"></textarea>
+                        </div>
+                        <div class="form-group">
+                                <label for="exampleImage" style="color: coral">Image</label>
+                                <input type="file" name="image" ng-model="image" 
+                                    id="exampleImage"
+                                    rows="5">
+                                <label id="chooseFile">choose a file</label>
+                            </div>
+                        <div class="form-group" style="text-align: center;">
+                            <button type="submit" class="btn" id="register-button">Create</button>
+                            <button type="reset" class="btn" id="register-button">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+    </section>
+</body>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $("#datepicker").datepicker( { dateFormat: 'dd-mm-yy' });
+    $( "#datepicker" ).datepicker().datepicker("setDate", new Date());
+  } );
+  
+  </script>
+</html>

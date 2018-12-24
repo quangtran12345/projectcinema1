@@ -1,0 +1,48 @@
+
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#title-word {
+  background-color:coral!important;
+}
+
+#register-button {
+  background-color: coral!important;
+  width: 100px;
+  color: white;
+}
+
+#register-button:hover {
+  background-color: white!important;
+  border: 1px solid coral;
+  color: coral; 
+}
+
+#exampleImage {
+    opacity: 0;
+    position: absolute;
+    width: 120px;
+    padding: 10px;
+}
+
+#chooseFile {
+  background-color: coral;
+  border-radius: 10px;
+  text-align: center;
+  width: 120px;
+  padding: 10px;
+  display: block;
+  color: white;
+}
+
+#chooseFile:hover {
+  background-color: white;
+  border: 1px solid coral;
+  color: coral;
+}
