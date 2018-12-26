@@ -1,38 +1,78 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <header>
-      <a href="/create">create</a>
-      <nav class="navbar navbar-default" >
-          <div class="container-fluid" style="background-color: coral;">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header" >
-              <a class="navbar-brand" href="/"><img src="../images/video-play.png" width="25px" height="25px"/></a>
-            </div>
-        
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
-              <ul class="nav navbar-nav" >
-                <li id="title-word"><a href="/" style="color:white; font: 25px bold;">MyCinema <span class="sr-only">(current)</span></a></li>
-                
-              </ul>
-              <ul class="nav navbar-nav navbar-right">
-                <li><a href="/register" style="color:white; font: 20px bold  ; "> <span class="glyphicon glyphicon-plus"></span> Register</a></li>
-                <li><a href="/login" style="color:white; font: 20px bold;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-              </ul>
-            </div><!-- /.navbar-collapse -->
-          </div><!-- /.container-fluid -->
-        </nav>
-      </header>
-  </body>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-  </html>
+<html ng-app="Movie">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+    crossorigin="anonymous">
+  <title>
+    <%= title %>
+  </title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="icon" type="image/*" href="../images/video-play.png">
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid" style="background-color: coral;">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/"><img src="../images/video-play.png" width="25px" height="25px" /></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li id="title-word"><a href="/" style="color:white; font: 25px bold;">David Cinema<span class="sr-only">(current)</span></a></li>
+
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/create" style="color:white; font: 20px bold  ; "> <span class="glyphicon glyphicon-plus"></span>
+                Create</a></li>
+            <li><a href="/login" style="color:white; font: 20px bold;"><span class="glyphicon glyphicon-log-in"></span>
+                Login</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+  </header>
+  <section>
+    <div class="row" ng-controller="listController" >
+      <div class="col-sm-6 col-md-3" ng-repeat="item in listFilm">
+        <div class="thumbnail" style="background-color: white;">
+            <img ng-src="{{item.image}}"  class="img" alt="Anh Phim">
+          <div class="caption mh-100" style="overflow: hidden;text-overflow: ellipsis; height: 200px;">
+            <h3 style="font-weight: bold; color:coral;"> {{item.name}}</h3>
+            <p>
+              <p style="display: inline; font-style: italic">{{item.genre}}</p> 
+            </p>
+            <p>
+              <p  style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-style: italic; display: inline">{{item.content}}</p> 
+            </p>
+            <span>
+                <p style="font-weight: bold; color: coral; display: inline;">Release Date:</p><span> {{item.date | date: 'dd/MM/yyyy'}}</span>
+            </span>
+            <p class="text-right"><a href="#" class="btn" id="detail-button" role="button">Detail</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+  crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="/javascripts/apiService.js"></script>
+<script src="/javascripts/Movie/listMovies.js"></script>
+
+
+</html>

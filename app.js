@@ -3,15 +3,16 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var mongoose = require('mongoose');
+require('./api/model/Movies')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+var movieRouter = require('./api/route/movie')
 var app = express();
 
 //Connect MongoDB
-var mongoose = require('mongoose');
-var mongoDB = 'mongodb://tranquang:123213176a@ds243254.mlab.com:43254/cinema';
+
+var mongoDB = 'mongodb://tranquang:123456a@ds243254.mlab.com:43254/cinema';
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/api/movie',movieRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
