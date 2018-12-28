@@ -12,7 +12,13 @@ async function getFilm() {
     return {movies:movies}
 }
 
+async function getDetail(id) {
+    const movies = await Movie.findById(id);
+    return {movies:movies}
+}
+
 module.exports = {
     createMovie : createMovie,
-    getFilm : getFilm
+    getFilm : getFilm,
+    getDetail : getDetail
 }

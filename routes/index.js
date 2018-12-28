@@ -28,4 +28,9 @@ router.get('/create', async function (req, res, next) {
 router.get('/logout', function (req, res, next) {
   res.render('login', { title: 'Logout' })
 })
+
+router.get('/detail/:id', function (req, res, next) {
+  var id = req.params.id
+  res.render('detail', {title : 'Detail', id : id})
+})
 module.exports = router;

@@ -31,4 +31,13 @@ router.get("/list", async function (req,res) {
         res.status(500).send(error)
     }
 })
+
+router.get("/:id",async function (req,res) {
+    try {
+        const response = await movieController.getDetail(req.params.id)
+        return res.send(response);
+    } catch (error) {
+        
+    }
+})
 module.exports = router

@@ -16,4 +16,5 @@ app.controller('listController',['$scope','apiService', function($scope,apiServi
             console.log(res)
         })
     }
+
 }])

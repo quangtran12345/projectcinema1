@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var schema = mongoose.Schema;
 var todoSchema = new schema({
+    userId: {type: String},
     name: {type: String},
     genre: {type: String},
     date: {type: String, default: Date.now()},
