@@ -1,12 +1,11 @@
-var secretCode = require('../model/AuthorizationModel')
+var secretCode = require('../properties')
 var jwt  = require('jsonwebtoken');
 async function authorizationUser(req, res, next) {
     var email
-    if (req.session.token != undefined) {
+    if (!req.session.token) {
         var token = req.session.token
         var decoded = jwt.verify(token, secretCode.secretCode.secret);
-        email = await decoded.email
-        
+        email = decoded.email
     } else {
         email = ''
     }
