@@ -44,7 +44,7 @@
                 Create</a></li>
             <% } %>
             <% if(email) {%>
-              <li><a href="/logout" style="color:white; font: 20px bold  ; " id="logout"> <i class="fas fa-sign-out-alt"></i>
+              <li><a href="#" style="color:white; font: 20px bold  ; " id="logout" data-toggle="modal" data-target=".bs-example-modal-sm"> <i class="fas fa-sign-out-alt"></i>
                 Logout</a></li>
             <% } %>
             
@@ -57,25 +57,37 @@
       </div><!-- /.container-fluid -->
     </nav>
   </header>
-  <section>
-    <div class="row" ng-controller="listController">
+  <section ng-controller="listController">
+    <div class="row" data-ng-init="items()">
       <div class="col-sm-6 col-md-3" ng-repeat="item in listFilm">
         <div class="thumbnail" style="background-color: white;">
-          <img ng-src="{{item.image}}" class="img" alt="Anh Phim" style="min-height: 160px; max-height: 200px">
+          <img ng-src="{{item.image}}" class="img" alt="Anh Phim" style="min-height: 200px; max-height: 200px">
           <div class="caption mh-100" style="overflow: hidden;text-overflow: ellipsis; min-height: 200px!important">
-            <h3 style="font-weight: bold; color:coral;"> {{item.name}}</h3>
-            <p>
-              <p style="display: inline; font-style: italic">{{item.genre}}</p>
-            </p>
-            <p>
-              <p style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-style: italic; display: inline">{{item.content}}</p>
-            </p>
-            <span>
-              <p style="font-weight: bold; color: coral; display: inline;">Release Date:</p><span> {{item.date | date:
-                'dd/MM/yyyy'}}</span>
-            </span>
+            <div style="height: 150px; min-height: 150px; max-height: 150px;">  
+              <h3 style="font-weight: bold; color:coral;"> {{item.name}}</h3>
+              <p>
+                <p style="display: inline; font-style: italic">{{item.genre}}</p>
+              </p>
+              <p>
+                <p style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-style: italic; display: inline">{{item.content}}</p>
+              </p>
+              <span>
+                <p style="font-weight: bold; color: coral; display: inline;">Release Date:</p><span> {{item.date | date:
+                  'dd/MM/yyyy'}}</span>
+              </span>
+            </div>
             <p class="text-right"><a href="#" class="btn" id="detail-button" role="button">Detail</a></p>
           </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header" style="color:indianred"><h4>Logout <i class="fa fa-lock"></i></h4></div>
+          <div class="modal-body"><i class="fa fa-question-circle"></i> Are you sure you want to log-out?</div>
+          <div class="modal-footer"><a ng-click="logout()" style="color: black; font-weight: bold"class="btn btn-block">Logout</a></div>
         </div>
       </div>
     </div>

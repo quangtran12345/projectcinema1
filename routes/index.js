@@ -25,14 +25,7 @@ router.get('/create', async function (req, res, next) {
   }
 });
 
-router.get('/list', function (req, res, next) {
-  res.render('list', { title: 'List', email: email || '' })
-});
-
 router.get('/logout', function (req, res, next) {
-  if (req.session.token != undefined) {
-    req.session.token = undefined
-  }
   res.render('login', { title: 'Logout' })
 })
 module.exports = router;

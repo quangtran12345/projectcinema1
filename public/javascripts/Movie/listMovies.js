@@ -6,7 +6,14 @@ app.controller('listController',['$scope','apiService', function($scope,apiServi
             $scope.listFilm = res.data.movies
         }).catch(function(res){
             console.log(res)
-        }) 
+        })
+         
     }
-    $scope.items()
+    $scope.logout = function () {
+        apiService.logoutUser().then(function () {
+            location.href = "/login"
+        }).catch(function (res) {
+            console.log(res)
+        })
+    }
 }])

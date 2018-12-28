@@ -4,6 +4,9 @@ angular.module('Movie',[]).factory('apiService',['$http',function($http){
         listMovie: function () {
             return $http.get("/api/movie/list");
         },
+        logoutUser: function () {
+            return $http.post("/api/user/userLogout");
+        }
         //Create User
         // createUser: function (formData) {
         //     return $http.post('/api/movie/create', formData, {

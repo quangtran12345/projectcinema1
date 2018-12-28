@@ -1,3 +1,9 @@
-angular.module('Movie', []).controller('logoutController', function($scope, $http) {
-    console.log($('#logout').text())
-})
+// angular.module('Movie', []).controller('logoutController', ['apiService', function ($scope, apiService) {
+//     $scope.logout = function () {
+//         apiService.logoutUser().then(function () {
+//             location.href = "/login"
+//         }).catch(function (res) {
+//             console.log(res)
+//         })
+//     }
+// }])

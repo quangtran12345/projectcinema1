@@ -14,7 +14,15 @@ async function userLogin(data) {
     }
     return { userInfor: userInfor }
 }
+
+function userLogout(req) {
+    if (req.session.token) {
+        req.session.token = undefined
+        return 200;
+    }
+}
 module.exports = {
     createUser: createUser,
     userLogin: userLogin,
+    userLogout: userLogout
 }

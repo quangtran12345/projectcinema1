@@ -36,4 +36,9 @@ router.post("/userLogin", async function(req,res,next) {
         return res.status(500).send(error)
     }
 })
+
+router.post("/userLogout", function (req,res,next) {
+    const response = userController.userLogout(req);
+    return res.send(response)
+})
 module.exports = router
