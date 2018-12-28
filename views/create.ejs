@@ -3,7 +3,7 @@
 
 <head>
 
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -26,7 +26,7 @@
             <div class="container-fluid" style="background-color: coral;">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/"><img src="../images/video-play.png" width="25px" height="25px" /></a>
+                    <a class="navbar-brand" href="/"><img src="/images/video-play.png" width="25px" height="25px" /></a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -36,32 +36,31 @@
 
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/register" style="color:white; font: 20px bold  ; "> <i class="fa fa-user-plus"
-                                    aria-hidden="true"></i>
-                                Register</a></li>
-                        <li><a href="/login" style="color:white; font: 20px bold;"><span class="glyphicon glyphicon-log-in"></span>
-                                Login</a></li>
+                        <li><a style="color:white; font: 20px bold  ; ">
+                                <%= email %></a></li>
+                        <li><a href="/logout" style="color:white; font: 20px bold;"><span class="glyphicon glyphicon-log-in"></span>
+                                Logout</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
     </header>
     <section>
-        <div class="container" ng-controller="fupController">
+        <div class="container" ng-controller="createController">
             <div class="col-md-6 col-md-offset-3" style="border: 1px solid coral; border-radius: 10px;">
                 <h1 style="text-align: center; color: coral; font-family: Georgia, 'Times New Roman', Times, serif">Create
                     Movie</h1>
-                <form name="createForm" ng-validate="validationOptions" class="md-form ng-pristine ng-isolate-scope ng-invalid ng-invalid-required"
+                <form name="createForm"  class="md-form"
                     novalidate="novalidate" enctype="multipart/form-data">
                     <div id="movie-form" class="col-md-10 col-md-offset-1">
                         <div class="form-group">
                             <label for="name" style="color: coral">Movie's Name</label>
-                            <input name="name" ng-model="name" type="text" class="form-control ng-pristine ng-empty ng-invalid ng-invalid-required ng-touched"
+                            <input name="name" ng-model="dataMovies.name" type="text" class="form-control"
                                 id="name" placeholder="Movie's Name" required="" aria-required="true">
                         </div>
                         <div class="form-group">
                             <label for="exampleSelect2" style="color: coral">Genre:</label>
-                            <select ng-model="genre" name="genre" class="required form-control ng-pristine ng-valid ng-not-empty valid ng-touched"
+                            <select  ng-model="dataMovies.genre" name="genre" class="required form-control"
                                 id="genre" aria-required="true" id="exampleSelect2" aria-invalid="false">
                                 <option label="Action" value="Action" selected="selected">Action</option>
                                 <option label="Horror" value="Horror">Horror</option>
@@ -69,12 +68,12 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="date" style="color: coral">Release Date</label>
-                            <input type="text" class="form-control valid" id="datepicker" aria-invalid="false" ng-model="date">
+                            <label for="datepicker" style="color: coral">Release Date</label>
+                            <input name="date"  ng-model="dataMovies.date" type="text" class="form-control" id="datepicker" aria-invalid="false" aria-required="true" >
                         </div>
                         <div class="form-group">
                             <label for="exampleTextarea" style="color: coral">Description</label>
-                            <textarea name="content" ng-model="content" class="form-control ng-pristine ng-valid ng-empty ng-touched"
+                            <textarea name="content"  ng-model="dataMovies.content" class="form-control"
                                 id="exampleTextarea" placeholder="Write about movie's content, actor, actress, author,..."
                                 rows="5"></textarea>
                         </div>
@@ -82,14 +81,14 @@
                                 <span class="input-group-btn">
                                   <span class="btn btn-file">
                                     Poster's Film
-                                    <input data-url="/upload" accept="image/png, image/jpeg" name="file" type="file" id="files" ng-files="createController($files)">
+                                    <input accept="image/png, image/jpeg" name="file" type="file" id="files" >
                                   </span>
                                 </span>
                                 <input style="border: 1px solid white " readonly="readonly" placeholder="Picture file" class="form-control" id="filename" type="text">
                                 <img id="image" />
                               </div>
                         <div class="form-group" style="margin-top: 20px;">
-                            <button type="submit" ng-click="uploadFiles()" class="btn align-right" id="register-button">Create</button>
+                            <button  ng-click="submit()" class="btn align-right" id="register-button">Create</button>
                             <button type="reset" class="btn" style="background-color: #9F1C00" id="cancel-button" id="register1">Cancel</button>
                         </div>
 
@@ -105,14 +104,13 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
     crossorigin="anonymous"></script>
-
-<script src="/javascripts/Movie/createMovies.js"></script>
 <script>
     $(function () {
         $("#datepicker").datepicker({ dateFormat: 'dd-mm-yy' });
         $("#datepicker").datepicker().datepicker("setDate", new Date());
-    });
+    })
 </script>
+<script src="/javascripts/Movie/createMovies.js"></script>
 <script>
     document.getElementById("files").onchange = function () {
     var reader = new FileReader();
@@ -127,7 +125,5 @@
     reader.readAsDataURL(this.files[0]);
     
 };
-
-
 </script>
 </html>

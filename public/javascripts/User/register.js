@@ -1,27 +1,37 @@
-var app = angular.module('user', [])
-app.controller('register','$scope','$http', async function ($scope, $http) {
-    $scope.email = '';
-    $scope.password = '';
-    $scope.confirm = '';
-    $scope.description = '';
-    var emailExp = '/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/';
+angular.module('Movie', [])
+    .controller('registerController', function ($scope, $http) {
+        $scope.submit = function () {
+            var error = false;
+            if (!$scope.email) {
+                alert('Input your email please !')
+                error = true
+            } else if (!$scope.password) {
+                alert('Input your password !')
+                error = true
+            } else if ($scope.password.length < 6) {
+                alert('Password must more five characters !')
+                error = true
+            } else if ($scope.password !== $scope.confirm) {
+                alert('Password is not match!')
+                error = true
+            } else {
+                const data = {
+                    email: $scope.email,
+                    password: $scope.password,
+                }
 
-    if ($scope.password !== $scope.confirm) {
-        alert('Password not matched');
-        $scope.email = '';
-        $scope.password = '';
-        $scope.confirm = '';
-        $scope.description = '';
-    } else if (!$scope.email.test(emailExp)) {
-        alert("Email not match !");
-    } else {
-        $scope.createUser = function () {
-            const data = {
-                email: $scope.email,
-                password: $scope.password,
-                description: $scope.description
+                $http.post('/api/user/createUser', data).then(function (res) {
+                    location.href = "/"
+                }).catch(function (res) {
+                    $scope.password = ''
+                    $scope.confirm = ''
+                    $scope.email = ''
+                    alert(res.data.message)
+                })
             }
-            apiService.createUser(data);
+            if (error) {
+                $scope.password = ''
+                $scope.confirm = ''
+            }
         }
-    }
-})
+    })

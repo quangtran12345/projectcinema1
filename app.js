@@ -4,16 +4,18 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
+var session = require('express-session');
 require('./api/model/Movies')
+require('./api/model/User')
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var usersRouter = require('./api/route/user');
 var movieRouter = require('./api/route/movie')
 var app = express();
 
 //Connect MongoDB
 
 var mongoDB = 'mongodb://tranquang:123456a@ds243254.mlab.com:43254/cinema';
-mongoose.connect(mongoDB);
+mongoose.connect(mongoDB,{useNewUrlParser: true});
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error',console.error.bind(console,'MongoDB connect fail !'));
@@ -26,10 +28,16 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+  secure: true,
+  httpOnly: true,
+  secret: 'vvv',
+  resave: false,
+  saveUninitialized: true
+ }))
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api/user', usersRouter);
 app.use('/api/movie',movieRouter)
 
 // catch 404 and forward to error handler

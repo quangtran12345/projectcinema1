@@ -1,34 +1,26 @@
-var app = angular.module('Movie')
-app.directive('ngFiles', ['$parse', function ($parse) {
-    function fn_link(scope, element, attrs) {
-        var onChange = $parse(attrs.ngFiles);
-        element.on('change', function (event) {
-            onChange(scope, {$files: event.target.files })
-        })
-    }
-    return {
-        link: fn_link
-    }
-}]).controller('fupController',function ($scope, $http) {
-
-    
-        var formData = new FormData();
-
-        $scope.createController =function ($files) {
-            angular.forEach($files, function (value, key) {
-                formData.append(key,value)
-            })
+angular.module('Movie').controller('createController', ['$scope', '$http', function ($scope, $http) {
+    $scope.submit = function () {
+        var formData = new FormData
+        var date = $("#datepicker").datepicker('getDate')
+        $scope.dates = {}
+        var timestamp = Math.floor( date.getTime());
+        $scope.dates = timestamp;
+        var file = $('#files')[0].files[0];
+        for (key in $scope.dataMovies) {
+            formData.append(key, $scope.dataMovies[key])
         }
-        $scope.uploadFiles = function () {
-            var request = {
-                method: 'POST',
-                url: '/api/movie/create',
-                data: formData, 
-                headers: {
-                    'Content-Type': undefined
-                }
+        formData.append('date', $scope.dates)
+        formData.append('image', file)
+
+        $http.post('/api/movie/create', formData, {
+            transformRequest: angular.identity,
+            headers: {
+                'Content-Type': undefined
             }
-        
-        $http(request)
-    }// $scope.movie = 'Xin chao'
-})
+        }).then(function() {
+            location.href = "/"
+        }).catch(function (res) {
+            console.log(res)
+        }) 
+    }
+}])

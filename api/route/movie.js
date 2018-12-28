@@ -2,18 +2,20 @@ var express = require("express");
 var router = express.Router();
 var fileUpload = require('express-fileupload')
 var movieController = require("../controller/movieController");
-router.post("/create",fileUpload() ,async function (req, res) {
+router.post("/create",fileUpload() ,async function (req, res, next) {
     try {
+        var fileName = req.files.image.name;
+        req.body.image = '/images/'+ fileName;
         const response = await movieController.createMovie(req.body)
-        var fileName = req.files.file.name;
-        file.mv('/images/' + fileName, function (err) {
+        var file = req.files.image
+        file.mv('../projectcinema1/public/images/' + fileName, function (err) {
             if(err) {
-                console.log(err);
+                return res.send(response);
             } else {
-                console.log('uploaded')
+               return res.send(response);
             }
         })
-        return res.send(response);
+        
     } catch (error) {
         console.log(error)
         res.status(500).send(error)
@@ -22,7 +24,7 @@ router.post("/create",fileUpload() ,async function (req, res) {
 
 router.get("/list", async function (req,res) {
     try {
-        const response = await movieController.getFilm();
+        const response = await movieController.getFilm()
         return res.send(response);
     } catch (error) {
         console.log(error)

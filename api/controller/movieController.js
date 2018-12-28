@@ -2,10 +2,9 @@ var mongoose = require('mongoose');
 var Movie = mongoose.model('Movies');
 
 async function createMovie(data) {
-    data
+    
     let movie = new Movie(data);
     movie =  await movie.save();
-    
     return {movie : movie}
 }
 

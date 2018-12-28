@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html ng-app="Movie">
-
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+    crossorigin="anonymous">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
     crossorigin="anonymous">
@@ -34,30 +34,45 @@
 
           </ul>
           <ul class="nav navbar-nav navbar-right">
+            <li><a style="color: white; font: 20px bold "><%= email %></a></li>
+            <% if(!email) { %>
+            <li><a href="/register" style="color:white; font: 20px bold  ; "> <i class="fa fa-user-plus" aria-hidden="true"></i>
+                Register</a></li>
+            <% } %>
+            <% if(email) {%>
             <li><a href="/create" style="color:white; font: 20px bold  ; "> <span class="glyphicon glyphicon-plus"></span>
                 Create</a></li>
+            <% } %>
+            <% if(email) {%>
+              <li><a href="/logout" style="color:white; font: 20px bold  ; " id="logout"> <i class="fas fa-sign-out-alt"></i>
+                Logout</a></li>
+            <% } %>
+            
+            <% if(!email) { %>
             <li><a href="/login" style="color:white; font: 20px bold;"><span class="glyphicon glyphicon-log-in"></span>
                 Login</a></li>
+            <% } %>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
   </header>
   <section>
-    <div class="row" ng-controller="listController" >
+    <div class="row" ng-controller="listController">
       <div class="col-sm-6 col-md-3" ng-repeat="item in listFilm">
         <div class="thumbnail" style="background-color: white;">
-            <img ng-src="{{item.image}}"  class="img" alt="Anh Phim">
-          <div class="caption mh-100" style="overflow: hidden;text-overflow: ellipsis; height: 200px;">
+          <img ng-src="{{item.image}}" class="img" alt="Anh Phim" style="min-height: 160px; max-height: 200px">
+          <div class="caption mh-100" style="overflow: hidden;text-overflow: ellipsis; min-height: 200px!important">
             <h3 style="font-weight: bold; color:coral;"> {{item.name}}</h3>
             <p>
-              <p style="display: inline; font-style: italic">{{item.genre}}</p> 
+              <p style="display: inline; font-style: italic">{{item.genre}}</p>
             </p>
             <p>
-              <p  style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-style: italic; display: inline">{{item.content}}</p> 
+              <p style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-style: italic; display: inline">{{item.content}}</p>
             </p>
             <span>
-                <p style="font-weight: bold; color: coral; display: inline;">Release Date:</p><span> {{item.date | date: 'dd/MM/yyyy'}}</span>
+              <p style="font-weight: bold; color: coral; display: inline;">Release Date:</p><span> {{item.date | date:
+                'dd/MM/yyyy'}}</span>
             </span>
             <p class="text-right"><a href="#" class="btn" id="detail-button" role="button">Detail</a></p>
           </div>
