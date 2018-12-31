@@ -6,7 +6,7 @@ var todoSchema = new schema({
     genre: {type: String},
     date: {type: String, default: Date.now()},
     content: {type: String},
-    image: {type: String,},
+    image: {type: String, default:"/images/video-play.png"},
 }) 
 
 var moviesModel = mongoose.model("Movies", todoSchema);

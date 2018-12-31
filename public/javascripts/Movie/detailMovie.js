@@ -4,7 +4,6 @@ app.controller('detailController', ['$scope', 'apiService', function ($scope, ap
     $scope.detailMovie = {}
     apiService.viewDetail(id).then(function (res) {
         $scope.detailMovie = res.data.movies
-        console.log($scope.detailMovie.name)
     }).catch(function (res) {
         console.log(res)
     })

@@ -1,5 +1,9 @@
 angular.module('Movie', []).controller('loginController', function ($scope, $http) {
-    $scope.submit = function () {
+    var data = {
+        email: undefined,
+        password: undefined,
+    }
+    function validation() {
         var error = false;
         if (!$scope.email) {
             error = true;
@@ -7,23 +11,23 @@ angular.module('Movie', []).controller('loginController', function ($scope, $htt
         } else if (!$scope.password) {
             error = true;
             alert('Input your password')
-        } else {
-            const data = {
+        }
+        return error
+    }
+    $scope.submit = function () {
+        var error = validation()
+        if(!error) {
+            data = {
                 email: $scope.email,
                 password: $scope.password,
             }
             $http.post('/api/user/userLogin', data).then(function () {
                 location.href = "/"
-            }).catch(function () {
+            }).catch(function (error) {
                 $scope.email = ''
                 $scope.password = ''
-                alert("Username or password is wrong !")
+                alert(error.data)
             })
-        }
-
-        if (error === true) {
-            $scope.email = ''
-            $scope.password = ''
         }
     }
 })

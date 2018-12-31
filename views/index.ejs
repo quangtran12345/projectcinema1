@@ -18,7 +18,8 @@
   <link rel="icon" type="image/*" href="../images/video-play.png">
 </head>
 
-<body>
+<body ng-controller="listController">
+  <input type="hidden" value="<%= token %>" ng-model="token" />
   <header>
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container-fluid" style="background-color: coral;">
@@ -34,21 +35,23 @@
 
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a style="color: white; font: 20px bold "><%= email %></a></li>
-            <% if(!email) { %>
+            <% if(email.email) { %>
+            <li><a href="/profile" style="color: white; font: 20px bold "><%= email.email %></a></li>
+            <% } %>
+            <% if(!email.email) { %>
             <li><a href="/register" style="color:white; font: 20px bold  ; "> <i class="fa fa-user-plus" aria-hidden="true"></i>
                 Register</a></li>
             <% } %>
-            <% if(email) {%>
+            <% if(email.email) {%>
             <li><a href="/create" style="color:white; font: 20px bold  ; "> <span class="glyphicon glyphicon-plus"></span>
                 Create</a></li>
             <% } %>
-            <% if(email) {%>
+            <% if(email.email) {%>
               <li><a href="#" style="color:white; font: 20px bold  ; " id="logout" data-toggle="modal" data-target=".bs-example-modal-sm"> <i class="fas fa-sign-out-alt"></i>
                 Logout</a></li>
             <% } %>
             
-            <% if(!email) { %>
+            <% if(!email.email) { %>
             <li><a href="/login" style="color:white; font: 20px bold;"><span class="glyphicon glyphicon-log-in"></span>
                 Login</a></li>
             <% } %>
@@ -57,9 +60,10 @@
       </div><!-- /.container-fluid -->
     </nav>
   </header>
-  <section ng-controller="listController">
+  <section >
     <div class="row" data-ng-init="items()">
       <div class="col-sm-6 col-md-3" ng-repeat="item in listFilm">
+        <a style="color:black;text-decoration: none" href="/detail/{{item._id}}">
         <div class="thumbnail" style="background-color: white;">
           <img ng-src="{{item.image}}" class="img" alt="Anh Phim" style="min-height: 200px; max-height: 200px">
           <div class="caption mh-100" style="overflow: hidden;text-overflow: ellipsis; min-height: 200px!important">
@@ -79,6 +83,7 @@
             <p class="text-right"><a ng-href="/detail/{{item._id}}" class="btn" id="detail-button" role="button">Detail</a></p>
           </div>
         </div>
+      </a>
       </div>
     </div>
     <!-- Modal -->

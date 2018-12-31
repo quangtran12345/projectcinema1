@@ -113,3 +113,6 @@ input[readonly] {
   background-color: rgb(255, 217, 0)!important;
 }
 
+#change-button {
+  border-radius: 20px;
+}

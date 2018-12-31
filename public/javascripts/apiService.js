@@ -10,7 +10,11 @@ angular.module('Movie',[]).factory('apiService',['$http',function($http){
         },
 
         viewDetail:function(id) {
-            return $http.get("/api/movie/"+ id);
+            return $http.get("/api/movie/"+ id)
+        },
+
+        getUserProfile:function(token) {
+            return $http.get("/api/user/userProfile/" + token)
         }
         //Create User
         // createUser: function (formData) {
