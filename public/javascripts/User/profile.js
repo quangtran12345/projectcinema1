@@ -3,7 +3,7 @@ app.controller('profileController',['$http','$scope','apiService', function($htt
     $scope.user = function () {
         var token = document.getElementById("token").value
         apiService.getUserProfile(token).then (function(res) {
-            $scope.userProfile = res.data.user
+            $scope.userProfile = res.data.response
         }).catch(function(res){
             console.log(res)
         })
@@ -15,10 +15,12 @@ app.controller('profileController',['$http','$scope','apiService', function($htt
         var formData = new FormData
         var token = document.getElementById("token").value
         var file = $('#files')[0].files[0];
-        for (key in $scope.user) {
-            formData.append(key, $scope.user[key])
+        for (key in $scope.userProfile) {
+            formData.append(key, $scope.userProfile[key])
         }
-        formData.append('image', file)
+        if(file) {
+            formData.append('image', file)
+        }
         formData.append('token', token)
         $http.put('/api/user/userUpdate', formData, {
             transformRequest: angular.identity,

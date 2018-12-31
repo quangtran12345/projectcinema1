@@ -25,12 +25,12 @@ router.get('/login', function (req, res, next) {
 router.get('/create', async function (req, res, next) {
   if(req.session.token) {
     var token = req.session.token
-    var decoded = await authorUser.authorizationUser(token)
+    var email = await authorUser.authorizationUser(token)
   }
-  if (!decoded) {
+  if (!email) {
     res.render('login', { title: 'Create Movie', })
   } else {
-    res.render('create', { title: 'Create Movie', email: decoded.email })
+    res.render('create', { title: 'Create Movie', email: email, token: token })
   }
 });
 

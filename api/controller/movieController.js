@@ -1,7 +1,9 @@
 var mongoose = require('mongoose');
 var Movie = mongoose.model('Movies');
+var secretCode = require('../properties')
+var jwt = require('jsonwebtoken')
 
-async function createMovie(data) {   
+async function createMovie(data) {
     let movie = new Movie(data);
     movie =  await movie.save();
     return {movie : movie}

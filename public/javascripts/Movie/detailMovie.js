@@ -8,4 +8,5 @@ app.controller('detailController', ['$scope', 'apiService', function ($scope, ap
         console.log(res)
     })
 
+    apiService.editProfile().then
 }])

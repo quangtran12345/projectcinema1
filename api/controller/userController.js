@@ -15,7 +15,7 @@ async function userLogin(req, data) {
         throw new Error("Email or password is not existed !")
     } else {
         var token = jwt.sign({
-            id: user.id,
+            id: user.id,    
             email: user.email, name: user.name, image: user.image,
             description: user.description, birthday: user.birthday
         }, secretCode.constant.secretCode);
@@ -33,31 +33,43 @@ function userLogout(req) {
     }
 }
 
-async function userProfile(token) {
-
-    var email = jwt.verify(token, secretCode.constant.secretCode)
-    const user = await User.findOne({ email: email.email })
-    return { user: user }
+async function userProfile(req) {
+    // var user = {
+    //     name: req.body.name,
+    //     birthday: req.body.birthday,
+    //     description: req.body.description,
+    //     image: req.files.image.name
+    // }
+    var response = {}
+    try {
+        var decoded = jwt.verify(req.params.token, secretCode.constant.secretCode)
+        response = await User.findOne({ email: decoded.email })
+        if(!response) {
+            throw new Error("User not login")
+        }
+    }catch (err) {
+        throw err.message
+    }
+    return { response: response }
 }
 
 async function userUpdate(req) {
     try {
-        var id = await jwt.verify(req.body.token, secretCode.constant.secretCode).id
         var user = {
-            'name': req.body.userName,
-            "birthday": req.body.birthday,
-            "description": req.body.description,
-            "image": req.files.image.name
+            name: req.body.name,
+            birthday: req.body.birthday,
+            description: req.body.description,
+            image: req.files.image.name,
         }
-        const response = await User.findByIdAndUpdate(id, {
-            $set: user.forEach(async element => {
-                throw new Throw("sample ")
-            })
-        })
+        var decoded = jwt.verify(req.body.token, secretCode.constant.secretCode)
+        var id = decoded.id
+        
+        await User.findByIdAndUpdate(id, {
+            $set: user})
+
     } catch (err) {
-        console.log(err.message);
+        console.log(err)
     }
-    return { user: user }
 }
 module.exports = {
     createUser: createUser,

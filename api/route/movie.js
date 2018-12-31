@@ -7,14 +7,18 @@ var authorUser = require("../controller/authorUser")
 
 router.post("/create", fileUpload(), async function (req, res, next) {
     try {
-        if (req.files) {
-            var fileName = req.files.image.name;
-            req.body.image = '/images/' + fileName;
-            var file = req.files.image
-            file.mv('../projectcinema1/public/images/' + fileName, )
+        if(req.body.email) {
+            if (req.files) {
+                var fileName = req.files.image.name;
+                req.body.image = '/images/' + fileName;
+                var file = req.files.image
+                file.mv('../projectcinema1/public/images/' + fileName, )
+            }
+            const response = await movieController.createMovie(req.body)
+            return res.status(200).send(response)
+        } else {
+            throw new Error("Login")
         }
-        const response = await movieController.createMovie(req.body)
-        return res.status(200).send(response)
     } catch (error) {
         console.log(error)
         res.status(500).send(error)

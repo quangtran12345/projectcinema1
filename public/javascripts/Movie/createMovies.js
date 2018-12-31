@@ -1,4 +1,4 @@
-angular.module('Movie').controller('createController', ['$scope', '$http', function ($scope, $http) {
+angular.module('Movie').controller('createController', ['$http', '$scope','apiService', function ($http,$scope,apiService) {
     $scope.genres = ['Action', 'Horror', 'Romantic']
     
     function validateValue() {
@@ -12,8 +12,10 @@ angular.module('Movie').controller('createController', ['$scope', '$http', funct
     
     $scope.submit = function () {
         var error = validateValue(error)
+        
         if(!error) {
             var formData = new FormData
+            var email = document.getElementById("email").innerHTML
             var date = $("#datepicker").datepicker('getDate')
             $scope.dates = {}
             var timestamp = Math.floor( date.getTime());
@@ -21,6 +23,9 @@ angular.module('Movie').controller('createController', ['$scope', '$http', funct
             var file = $('#files')[0].files[0];
             for (key in $scope.dataMovies) {
                 formData.append(key, $scope.dataMovies[key])
+            }
+            if(email) {
+                formData.append('email', email)
             }
             formData.append('date', $scope.dates)
             if(file) {
@@ -37,5 +42,16 @@ angular.module('Movie').controller('createController', ['$scope', '$http', funct
                 console.log(res)
             }) 
         }
+    }
+
+    $scope.logout = function () {
+        apiService.logoutUser().then(function () {
+            location.href = "/login"
+        }).catch(function (res) {
+            console.log(res)
+        })
+    }
+    $scope.cancel = function () {
+        location.href = "/"
     }
 }])
