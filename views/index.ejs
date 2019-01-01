@@ -39,8 +39,8 @@
             <li><a href="/profile" style="color: white; font: 20px bold "><%= email.email %></a></li>
             <% } %>
             <% if(!email.email) { %>
-            <li><a href="/register" style="color:white; font: 20px bold  ; "> <i class="fa fa-user-plus" aria-hidden="true"></i>
-                Register</a></li>
+            <li><a href="/reg" style="color:white; font: 20px bold  ; "> <i class="fa fa-user-plus" aria-hidden="true"></i>
+                Sign Up</a></li>
             <% } %>
             <% if(email.email) {%>
             <li><a href="/create" style="color:white; font: 20px bold  ; "> <span class="glyphicon glyphicon-plus"></span>
@@ -65,15 +65,16 @@
       <div class="col-sm-6 col-md-3" ng-repeat="item in listFilm">
         <a style="color:black;text-decoration: none" href="/detail/{{item._id}}">
         <div class="thumbnail" style="background-color: white;">
-          <img ng-src="{{item.image}}" class="img" alt="Anh Phim" style="min-height: 200px; max-height: 200px">
-          <div class="caption mh-100" style="overflow: hidden;text-overflow: ellipsis; min-height: 200px!important">
+          <img ng-src="{{item.image}}"  class="img" alt="Anh Phim" style="object-fit: cover; max-height: 400px;min-height: 400px">
+          <div class="caption mh-100"  style="min-height: 200px!important">
             <div style="height: 150px; min-height: 150px; max-height: 150px;">  
               <h3 style="font-weight: bold; color:coral;"> {{item.name}}</h3>
               <p>
                 <p style="display: inline; font-style: italic">{{item.genre}}</p>
               </p>
               <p>
-                <p style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-style: italic; display: inline">{{item.content}}</p>
+                <p style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-style: italic;
+               overflow: hidden!important;text-overflow: ellipsis; height: 20px;">{{item.content}}</p>
               </p>
               <span>
                 <p style="font-weight: bold; color: coral; display: inline;">Release Date:</p><span> {{item.date | date:

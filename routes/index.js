@@ -14,8 +14,8 @@ router.get('/', async function (req, res, next) {
   }
   res.render('index', { title: 'Home', email: email, token: token });
 });
-router.get('/register', function (req, res, next) {
-  res.render('register', { title: 'Register' });
+router.get('/reg', function (req, res, next) {
+  res.render('register', { title: 'Sign Up' });
 });
 
 router.get('/login', function (req, res, next) {

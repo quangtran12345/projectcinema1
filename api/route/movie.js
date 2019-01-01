@@ -2,8 +2,6 @@ var express = require("express");
 var router = express.Router();
 var fileUpload = require('express-fileupload')
 var movieController = require("../controller/movieController");
-var secretCode = require("../properties")
-var authorUser = require("../controller/authorUser")
 
 router.post("/create", fileUpload(), async function (req, res, next) {
     try {
@@ -48,13 +46,17 @@ router.get("/:id", async function (req, res) {
 
 router.put("/editMovie", fileUpload(), async function (req, res) {
     try {
+        var fileName 
         if (req.session.token) {
             if (req.files) {
-                var fileName = req.files.image.name;
+                fileName = req.files.image.name;
                 var file = req.files.image
                 file.mv('../projectcinema1/public/images/' + fileName)
             }
-            const response = await movieController.editMovie(req)
+            if(fileName) {
+                fileName = "/images/"+ fileName
+            }
+            const response = await movieController.editMovie(req, fileName)
             return res.send(response)
         }
     } catch (error) {

@@ -64,7 +64,7 @@ async function userUpdate(req,fileName) {
         user.name = req.body.name || user.name
         user.birthday = req.body.birthday || user.birthday
         user.description = req.body.description || user.description
-        user.image = "/images/" + fileName || user.image
+        user.image = fileName || user.image
         await user.save()
     } catch (err) {
         throw err.message

@@ -50,6 +50,9 @@ router.put("/userUpdate", fileUpload(), async function (req, res, next) {
             var file = req.files.image
             file.mv('../projectcinema1/public/images/' + fileName)
         }
+        if(fileName) {
+            fileName = "/images/" + fileName
+        }
         await userController.userUpdate(req, fileName)
         return res.send()
     } catch (error) {

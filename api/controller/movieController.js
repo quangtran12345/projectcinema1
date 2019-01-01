@@ -19,23 +19,21 @@ async function getDetail(id) {
     return {movies:movies}
 }
 
-async function editMovie(req) {
-    const movie = await Movie.findById(req.body.id)
-    if(!movie){
-
-    }
-    movie.name = req.body.name || movie.name
-    // var movie = {
-    //     name : req.body.name,
-    //     genre: req.body.genre,
-    //     date : req.body.date,
-    //     content: req.body.content,
-    //     image: "/images/" + req.files.image.name , 
-    // }
-    // var id = req.body.id
-    const movies = await Movie.findByIdAndUpdate(id, {$set: movie})
-    if(!movies) {
-        throw new Error("Update Fail !")
+async function editMovie(req, fileName) {
+    try {
+        const movie = await Movie.findById(req.body.id)
+        if(!movie){
+            throw new Error("Movie isn't exist !")
+        }
+        movie.name = req.body.name || movie.name
+        movie.genre = req.body.genre || movie.genre
+        movie.date = req.body.date || movie.date
+        movie.content = req.body.content || movie.content
+        movie.image = fileName || movie.image
+        
+        await movie.save()
+    } catch(err) {
+        throw err.message
     }
     return {success: "success"}
 }
