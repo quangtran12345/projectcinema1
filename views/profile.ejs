@@ -1,3 +1,4 @@
+<% if(email.email) { %>
 <!DOCTYPE html>
 <html ng-app="Movie">
 
@@ -36,25 +37,27 @@
                     <ul class="nav navbar-nav navbar-right">
                         <%  if(email.email) {%>
                         <li><a href="/profile/" style="color:white; font: 20px bold  ; "><%= email.email %></a></li>
+                        <li><a href="#" style="color:white; font: 20px bold  ; " id="logout" data-toggle="modal" data-target=".bs-example-modal-sm1"> <i class="fas fa-sign-out-alt"></i>
+                            Logout</a></li>
                         <% } %>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
     </header>
-    <section style="margin-top: 50px; max-width: 98%; padding-left: 2%">
-        <div class="row panel panel-warning" style="margin-top:2%;">
-            <div class="panel-heading lead" >
+    <section style="margin-top: 50px; width: 82%; padding-left: 2%"  class ="col-md-7 col-md-offset-1">
+        <div class="row panel panel-warning "  style="margin-top:2%;">
+            <div class="panel-heading lead " >
                 <div class="row">
                     <div class="col-lg-8 col-md-8"><i class="fas fa-user"></i> My Profile</div>
                     <div class="col-lg-4 col-md-4 text-right">
                         <div class="btn-group text-center">
-                            <a data-toggle="modal" style="background-color: coral!important" data-target=".bs-example-modal-sm" class="btn btn-sm "><i style="color: white" class="fa fa-edit fa-1x"></i></a>
+                            <a onclick="showFormEdit()" style="background-color: coral!important" class="btn btn-sm "><i style="color: white" class="fa fa-edit fa-1x"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="panel-body">
+            <div class="panel-body" >
                 <div class="row">
                     <div class="col-lg-12 col-md-12">
 
@@ -62,14 +65,14 @@
                             <div class="col-lg-3 col-md-3">
                                 <center>
                                     <span class="text-left">
-                                        <img ng-src="/images/{{userProfile.image}}" id="image" style="min-width: 200px; min-width: 200px; width: 200px; object-fit: scale-down;height:200px;max-height: 200px; min-height: 200px"
+                                        <img ng-src="{{userProfile.image}}" id="image" style="min-width: 200px; min-width: 200px; width: 200px; object-fit: scale-down;height:200px;max-height: 200px; min-height: 200px"
                                             class="img-responsive img-thumbnail">
                                         <div class="table-responsive panel">
                                             <table class="table">
                                                 <tbody>
                                                     <tr>
                                                         <td class="text-center">
-                                                            <div class="input-group">
+                                                            <div class="input-group" >
                                                                 <span class="input-group-btn">
                                                                     <span id="change-button" class="btn btn-file">
                                                                         Change Avatar
@@ -93,31 +96,41 @@
                                                 class="fa fa-indent"></i> Summery</a></li>
                                 </ul>
                                 <div class="tab-content">
-                                    <div id="Summery" class="tab-pane fade in active">
+                                    <div id="Summery" class="tab-pane fade in active" >
                                         <div class="table-responsive panel">
-                                            <table class="table">
-                                                <tbody>
+                                            <table class="table" >
+                                                <tbody >
                                                     <tr>
                                                         <td class="text-success"><i class="fas fa-envelope-square"></i>
                                                             Email</td>
-                                                        <td>
+                                                        <td style="font-weight: bold">
                                                             {{userProfile.email}}
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-success"><i class="fa fa-user"></i>Name</td>
-                                                        <td><input ng-model="userProfile.name" type="text" ng-value="userProfile.name" class="form-control" placeholder="Name" ></td>
+                                                        <td class="text-success"><i class="fa fa-user"></i> Name</td>
+                                                        <td class="label-userprofile">{{userProfile.name}}</td>
+                                                        <td class="input-userprofile"><input ng-model="userProfile.name" type="text" ng-value="userProfile.name" class="form-control" placeholder="Name" ></td>
                                                     </tr>   
                                                     <tr>
-                                                        <td class="text-success"><i class="fas fa-calendar-check"></i>Birthday</td>
-                                                        <td><input ng-model="userProfile.birthday" ng-value="userProfile.birthday" type="text" class="form-control" placeholder="Birthday" >   </td>
+                                                        <td class="text-success"><i class="fas fa-calendar-check"></i> Birthday</td>
+                                                        <td class="label-userprofile">{{userProfile.birthday}}</td>
+                                                        <td class="input-userprofile"><input ng-model="userProfile.birthday" ng-value="userProfile.birthday" type="text" class="form-control" placeholder="Birthday" >   </td>
 
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-success"><i class="fa fa-book"></i>Description</td>
-                                                        <td><textarea ng-model="userProfile.description" ng-value="userProfile.description" type="text" class="form-control" placeholder="Description" ></textarea></td>
+                                                        <td class="text-success"><i class="fa fa-book"></i> Description</td>
+                                                        <td class="label-userprofile">{{userProfile.description}}</td>
+                                                        <td class="input-userprofile"><textarea ng-model="userProfile.description" ng-value="userProfile.description" type="text" class="form-control" placeholder="Description" ></textarea></td>
                                                     </tr>
+                                                    
                                                 </tbody>
+                                                <tfoot>
+                                               
+                                                    <td><button type="button" id="btnCancel" onclick="calcelFormEdit()" class="btn">Cancel</button></td>
+                                                    <td><button type="button" id="btnEdit" data-toggle="modal" data-target=".bs-example-modal-sm" style="background-color: coral; color: white" class="btn">Update</button></td>
+                                               
+                                                </tfoot>
                                             </table>
                                         </div>
                                     </div>
@@ -143,6 +156,15 @@
               </div>
             </div>
           </div>
+          <div class="modal bs-example-modal-sm1" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                  <div class="modal-content">
+                    <div class="modal-header" style="color:indianred"><h4 style="font-weight: bold">Alert <i class="fas fa-exclamation"></i></h4></div>
+                    <div class="modal-body"><i class="fa fa-question-circle"></i> Are you sure you want to Sign-out ?</div>
+                    <div class="modal-footer"><a href="/logout" style="color: black; font-weight: bold"class="btn btn-block">Ok</a></div>
+                  </div>
+                </div>
+        </div>
 </body>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
@@ -163,6 +185,44 @@
         reader.readAsDataURL(this.files[0]);
 
     };
+
+    function showFormEdit() {
+        var x = document.getElementsByClassName("label-userprofile");
+        var y = document.getElementsByClassName("input-userprofile");
+        var btnEdit = document.getElementById("btnEdit");
+        var btnCancel = document.getElementById("btnCancel");
+        var changeButton = document.getElementById("change-button");
+
+        for(i=0; i < x.length; i++) {
+            x[i].style.display = "none";
+            y[i].style.display = "block";
+        }
+        btnEdit.style.display = "block";
+        btnCancel.style.display = "block";
+        changeButton.style.display = "block";
+    }
+
+    function calcelFormEdit() {
+        var x = document.getElementsByClassName("label-userprofile");
+        var y = document.getElementsByClassName("input-userprofile");
+        var btnEdit = document.getElementById("btnEdit");
+        var btnCancel = document.getElementById("btnCancel");
+        var changeButton = document.getElementById("change-button");
+
+        for(i=0; i < x.length; i++) {
+            x[i].style.display = "block";
+            y[i].style.display = "none";
+        }
+        btnEdit.style.display = "none";
+        btnCancel.style.display = "none";
+        changeButton.style.display = "none";
+    }
 </script>
 
 </html>
+<% } %> 
+<% if(!email.email) { %> 
+    <script>
+        window.location.href = "/login"  
+    </script>
+<% } %>

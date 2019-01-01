@@ -53,22 +53,21 @@ async function userProfile(req) {
     return { response: response }
 }
 
-async function userUpdate(req) {
+async function userUpdate(req,fileName) {
     try {
-        var user = {
-            name: req.body.name,
-            birthday: req.body.birthday,
-            description: req.body.description,
-            image: req.files.image.name,
-        }
         var decoded = jwt.verify(req.body.token, secretCode.constant.secretCode)
         var id = decoded.id
-        
-        await User.findByIdAndUpdate(id, {
-            $set: user})
-
+        const user = await User.findById(id)
+        if(!user) {
+            throw new Error("User isn't exist !")
+        } 
+        user.name = req.body.name || user.name
+        user.birthday = req.body.birthday || user.birthday
+        user.description = req.body.description || user.description
+        user.image = "/images/" + fileName || user.image
+        await user.save()
     } catch (err) {
-        console.log(err)
+        throw err.message
     }
 }
 module.exports = {

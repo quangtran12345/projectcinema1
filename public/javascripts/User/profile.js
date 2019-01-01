@@ -30,7 +30,7 @@ app.controller('profileController',['$http','$scope','apiService', function($htt
         }).then(function() {
             location.href = "/profile"
         }).catch(function (res) {
-            console.log(res)
+            alert(res.data)
         }) 
     }
 }])

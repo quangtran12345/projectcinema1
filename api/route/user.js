@@ -44,15 +44,15 @@ router.post("/userLogout", function (req, res, next) {
 
 router.put("/userUpdate", fileUpload(), async function (req, res, next) {
     try {
+        var fileName
         if (req.files) {
-            var fileName = req.files.image.name;
+            fileName = req.files.image.name;
             var file = req.files.image
             file.mv('../projectcinema1/public/images/' + fileName)
         }
-        const response = await userController.userUpdate(req)
-        return res.send(response)
+        await userController.userUpdate(req, fileName)
+        return res.send()
     } catch (error) {
-        console.log(error.message)
         return res.status(500).send(error)
     }
 })

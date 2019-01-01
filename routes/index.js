@@ -12,7 +12,7 @@ router.get('/', async function (req, res, next) {
     token = req.session.token
     email = await authorUser.authorizationUser(token)
   }
-  res.render('index', { title: 'Home', email: email , token: token });
+  res.render('index', { title: 'Home', email: email, token: token });
 });
 router.get('/register', function (req, res, next) {
   res.render('register', { title: 'Register' });
@@ -23,7 +23,7 @@ router.get('/login', function (req, res, next) {
 });
 
 router.get('/create', async function (req, res, next) {
-  if(req.session.token) {
+  if (req.session.token) {
     var token = req.session.token
     var email = await authorUser.authorizationUser(token)
   }
@@ -34,13 +34,23 @@ router.get('/create', async function (req, res, next) {
   }
 });
 
-router.get('/logout', function (req, res, next) {
+router.get('/logout',function (req, res, next) {
+  if(req.session.token) {
+    userController.userLogout(req);
+  }
+  next();
+}, function (req, res, next) {
   res.render('login', { title: 'Logout' })
 })
 
-router.get('/detail/:id', function (req, res, next) {
+router.get('/detail/:id', async function (req, res, next) {
+  var email = {}
   var id = req.params.id
-  res.render('detail', { title: 'Detail', id: id })
+  if (req.session.token) {
+    var token = req.session.token
+    email = await authorUser.authorizationUser(token)
+  }
+  res.render('detail', { title: 'Detail', id: id, email: email })
 })
 
 router.get('/profile', async function (req, res, next) {
@@ -50,7 +60,7 @@ router.get('/profile', async function (req, res, next) {
     token = req.session.token
     email = await authorUser.authorizationUser(token)
   }
-  res.render('profile', { title: 'Infor', email: email, token: token})
+  res.render('profile', { title: 'Infor', email: email, token: token })
 })
 
 router.get('/modify/:token', async function (req, res, next) {

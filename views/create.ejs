@@ -37,7 +37,9 @@
 
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/profile/" style="color:white; font: 20px bold ;" id="email"><%= email.email %></a></li>
+                            <% if(email.email) { %>
+                                <li><a href="/profile" id="email" style="color: white; font: 20px bold "><%= email.email %></a></li>
+                                <% } %>
                         <li><a href="#" style="color:white; font: 20px bold;" data-toggle="modal" data-target=".bs-example-modal-sm"><span class="glyphicon glyphicon-log-in"></span>
                                 Logout</a></li>
                     </ul>

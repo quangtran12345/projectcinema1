@@ -19,8 +19,38 @@ async function getDetail(id) {
     return {movies:movies}
 }
 
+async function editMovie(req) {
+    const movie = await Movie.findById(req.body.id)
+    if(!movie){
+
+    }
+    movie.name = req.body.name || movie.name
+    // var movie = {
+    //     name : req.body.name,
+    //     genre: req.body.genre,
+    //     date : req.body.date,
+    //     content: req.body.content,
+    //     image: "/images/" + req.files.image.name , 
+    // }
+    // var id = req.body.id
+    const movies = await Movie.findByIdAndUpdate(id, {$set: movie})
+    if(!movies) {
+        throw new Error("Update Fail !")
+    }
+    return {success: "success"}
+}
+
+async function deleteMovie(id) {
+        const movies = await Movie.findByIdAndDelete(id)
+        if(!movies) {
+            throw new("Delete Fail")
+        }
+        return {success: "/"}
+}
 module.exports = {
     createMovie : createMovie,
     getFilm : getFilm,
-    getDetail : getDetail
+    getDetail : getDetail,
+    editMovie : editMovie,
+    deleteMovie: deleteMovie
 }

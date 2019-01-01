@@ -15,6 +15,10 @@ angular.module('Movie',[]).factory('apiService',['$http',function($http){
 
         getUserProfile:function(token) {
             return $http.get("/api/user/userProfile/" + token)
+        },
+
+        deleteMovie: function(id) {
+            return $http.delete("/api/movie/delete/" + id)
         }
         //Create User
         // createUser: function (formData) {
