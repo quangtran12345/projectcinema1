@@ -20,7 +20,6 @@ router.post("/create", fileUpload(), async function (req, res, next) {
             throw new Error("Login")
         }
     } catch (error) {
-        console.log(error)
         res.status(500).send(error)
     }
 })
@@ -30,7 +29,6 @@ router.get("/list", async function (req, res) {
         const response = await movieController.getFilm()
         return res.send(response);
     } catch (error) {
-        console.log(error)
         res.status(500).send(error)
     }
 })
@@ -73,6 +71,16 @@ router.delete("/delete/:id", async function (req, res) {
         }
     } catch (error) {
         throw error.message
+    }
+})
+
+router.get("/search", async function (req, res) {
+    try {
+        var searchValue = req.body.searchValue
+        const response = await movieController.searchFilm(searchValue)
+        return res.send(response);
+    } catch (error) {
+        res.status(500).send(error)
     }
 })
 module.exports = router

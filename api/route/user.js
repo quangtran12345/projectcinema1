@@ -13,7 +13,7 @@ router.post("/createUser", async function (req, res, next) {
     } catch (Error) {
         var a = Error.message.search('duplicate')
         if (a > 0) {
-            return res.status(500).send({ message: 'Email is existed input another email' })
+            return res.status(500).send({ message: 'Email is existed, please input another email!' })
         }
     }
 
@@ -57,6 +57,19 @@ router.put("/userUpdate", fileUpload(), async function (req, res, next) {
         return res.send()
     } catch (error) {
         return res.status(500).send(error)
+    }
+})
+
+router.post("/changePass", async function (req, res, next) {
+    try {
+        var token = req.body.token
+        var oldPassword = req.body.oldPassword
+        var newPassword = req.body.newPassword
+        var sessionToken = req.session.token
+        const response = await userController.changePassword(token,oldPassword,newPassword, sessionToken)
+        return res.send(response)
+    } catch (error) {
+        return res.status(500).send(error.message)
     }
 })
 module.exports = router

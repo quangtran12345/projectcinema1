@@ -16,11 +16,11 @@
         <%= title %>
     </title>
 
-    <link rel="icon" type="image/*" href="/video-play.png">
+    <link rel="icon" type="image/*" href="/images/video-play.png">
     <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 
-<body ng-controller="detailController">
+<body ng-controller="detailController" style="margin: 0; padding: 0">
     <header>
         <nav class="navbar navbar-default navbar-fixed-top" >
             <p id="id" style="display: none"><%= id  %></p>
@@ -39,7 +39,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <% if(email.email) { %>
                         <li><a href="/profile" style="color: white; font: 20px bold " id="email"><%= email.email %></a></li>                   
-                        <li><a href="/logout" style="color:white; font: 20px bold;"><span class="glyphicon glyphicon-log-in"></span>
+                        <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-sm" style="color:white; font: 20px bold;"><span class="glyphicon glyphicon-log-in"></span>
                                 Logout</a></li>
                         <% } %>
                         <% if(!email.email) { %>
@@ -57,16 +57,16 @@
     </header>
     <section style="margin-top: 75px; max-width: 98%; padding-left: 2%">
     <input type="hidden" id="author" value="{{detailMovie.email}}" >  
-    <div class="row panel panel-success" style="margin-top:2%;">
+    <div class="row panel panel-warning" style="margin-top:2%;">
         <div class="panel-heading lead">
             <div class="row">
-                <div class="col-lg-8 col-md-8"><i class="fa fa-users"></i> View Movie Details</div>
+                <div class="col-lg-8 col-md-8"><i class="fas fa-film"></i> View Movie Details</div>
                 <div class="col-lg-4 col-md-4 text-right">
                     <div class="btn-group text-center"  id="checkAuthor">
                         <% if(email.email) { %>
-                        <a id="btnUpdate" ng-click="showFormEdit()" style="background-color: coral!important; color: white; display: none;"  class="btn btn-sm " class="btn"><i class="fa fa-edit fa-1x"></i></a>
-                        <a id="btnCancel1" ng-click="cancelFormEdit()" style="background-color: coral!important; color: white; display: none;"  class="btn btn-sm " class="btn"><i class="fa fa-edit fa-1x"></i></a>
-                        <a id="btnDelete" style="display: none;"class="btn btn-success btn-sm btn-default"><i class="fa fa-trash fa-1x"></i></a>
+                        <a id="btnUpdate" ng-click="showFormEdit()" style="color: #8a6d3b;border:1px solid;border-radius: 2px; display: none;background-color:white"  class="btn btn-sm " class="btn"><i class="fa fa-edit fa-1x"></i></a>
+                        <a id="btnCancel1" ng-click="cancelFormEdit()" style="color: #8a6d3b;border:1px solid; display: none;background-color:white"  class="btn btn-sm "><i class="fa fa-edit fa-1x"></i></a>
+                        <a id="btnDelete" data-toggle="modal" data-target=".bs-delete-modal-sm"  style="border:1px solid ;color: #8a6d3b; background-color:white;display:none;"class="btn btn-sm"><i class="fa fa-trash fa-1x"></i></a>
                        <% } %>
                     </div>
                 </div>
@@ -106,7 +106,7 @@
                                 <div class="tab-content">
                                     <div class="tab-pane fade in active">
                                         <div class="table-responsive panel">
-                                            <table class="table" style="height:200px">
+                                            <table class="table"  style="height:200px ">
                                                 <tbody>
                                                         <tr>
                                                             <td class="text-success"><i class="fa fa-user"></i> Movie Name</td>
@@ -116,13 +116,19 @@
                                                         <tr>
                                                             <td class="text-success"><i class="fa fa-list-ol"></i> Genre</td>
                                                             <td class="label-detailMovie">{{detailMovie.genre}}</td>
-                                                            <td class="input-detailMovie"><input type="text" ng-model="detailMovie.genre" ng-value="detailMovie.genre" class="form-control input-data" placeholder="Name" ></td>
+                                                            <td class="input-detailMovie">
+                                                                <select ng-init="detailMovie.genre = genres[0]" ng-model="detailMovie.genre" ng-options="genre for genre in genres"
+                                                                    class="required form-control" id="genre" aria-required="true"
+                                                                    aria-invalid="false">
+                                                                </select>
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <td class="text-success"><i class="fas fa-calendar-check"></i> Date</td>
                                                             <td class="label-detailMovie">{{detailMovie.date | date:
                                                                     'dd/MM/yyyy'}}</td>
-                                                            <td class="input-detailMovie"><input type="text" ng-model="detailMovie.date" ng-value="detailMovie.date | date: 'dd/MM/yyyy'" class="form-control input-data" placeholder="Name" ></td>
+                                                            <td class="input-detailMovie"><input name="date" ng-model="dataMovies.date" ng-value="detailMovie.date | date: 'dd/MM/yyyy'" type="text" class="form-control input-data" id="datepicker"
+                                                                    aria-invalid="false" aria-required="true"></td>
                                                         </tr>
                                                 </tbody>
                                             </table>
@@ -133,8 +139,8 @@
                         </div>
                     </div>
                 </div>
-                <span class="label-detailMovie">
-                        <p class="text-success"> <i class="fas fa-book-open"></i> Movie's Content</p>
+                <span class="label-detailMovie" style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: 15px; word-spacing: 2px">
+                        <p class="text-success" > <i class="fas fa-book-open"></i> Movie's Content</p>
                         {{detailMovie.content}}  
                 </span>
                 <textarea ng-model="detailMovie.content" type="text" style="padding: 10px; height: 150px" class="form-control input-detailMovie"></textarea>
@@ -142,10 +148,42 @@
                         <button type="button" id="btnCancel" ng-click="cancelFormEdit()" class="btn">Cancel</button>
                         <button type="button" id="btnEdit"
                             style="background-color: coral; color: white"  ng-click="editMovie()" class="btn">Update</button>
-                    </div>
+                </div>
         </div>
     </div>
 </section>
+<footer id="myFooter" style="background-color:tomato; color: white;padding: 50px; margin-top: 56px;">
+    <div class="container" >
+        <div class="row">
+          <div class="footer-copyright text-center py-3">© 2018 Copyright:
+            <a href="/"> David Cinema</a>
+          </div>
+        </div>
+    </div>
+  </footer>
+<div class="modal bs-delete-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body text-center" style="padding: 50px 0 50px 0;"><i class="fa fa-question-circle"></i> Are you sure you want to deleted !</div>
+        
+        <div class="modal-footer">
+            <a ng-click="deleteMovie()" style="color:white; font-weight: bold;background-color: coral!important"class="btn ">Delete</a>
+            <a href="#" data-dismiss="modal" style="color:white; font-weight: bold;float: left;background-color: darkred!important"class="btn">Cancel</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body text-center" style="padding: 50px 0 50px 0;"><i class="fa fa-question-circle"></i> Are you sure you want to log-out?</div>
+        <div class="modal-footer center">
+            <a href="#" data-dismiss="modal" style="color:white; font-weight: bold;float: left;background-color: darkred!important"class="btn">Cancel</a>
+            <a href="/logout" style="color:white; font-weight: bold;background-color: coral!important"class="btn ">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -166,8 +204,12 @@
         // read the image file as a data URL.
         reader.readAsDataURL(this.files[0]);
 
-    };
-
-    
+    };  
+</script>
+<script>
+    $(function () {
+        $("#datepicker").datepicker({ dateFormat: 'dd-mm-yy' });
+        $("#datepicker").datepicker().datepicker("setDate", new Date());
+    })
 </script>
 </html>

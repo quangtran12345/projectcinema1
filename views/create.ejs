@@ -21,7 +21,7 @@
     <link rel="icon" type="image/*" href="../images/video-play.png">
 </head>
 
-<body ng-controller="createController">
+<body ng-controller="createController" style="padding:0; margin:0">
     <header>
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid" style="background-color: coral;">
@@ -47,7 +47,7 @@
             </div><!-- /.container-fluid -->
         </nav>
     </header>
-    <section>
+    <section style="margin: 100px">
         <div class="container" >
             <div class="col-md-6 col-md-offset-3" style="border: 1px solid coral; border-radius: 10px;">
                 <h1 style="text-align: center; color: coral; font-family: Georgia, 'Times New Roman', Times, serif">Create
@@ -98,21 +98,34 @@
         </div>
         </div>
     </section>
+    <footer id="myFooter" style="background-color:coral; color: white; padding: 50px; clear: both; bottom: 0">
+        <div class="container">
+            <div class="row">
+              <div class="footer-copyright text-center py-3">© 2018 Copyright:
+                <a href="/"> David Cinema</a>
+              </div>
+            </div>
+        </div>
+      </footer>
     <div class="modal bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-sm">
-              <div class="modal-content">
-                <div class="modal-header" style="color:indianred"><h4>Logout <i class="fa fa-lock"></i></h4></div>
-                <div class="modal-body"><i class="fa fa-question-circle"></i> Are you sure you want to log-out?</div>
-                <div class="modal-footer"><a ng-click="logout()" style="color: black; font-weight: bold"class="btn btn-block">Logout</a></div>
-              </div>
+                    <div class="modal-content">
+                        <div class="modal-body text-center" style="padding: 50px 0 50px 0;"><i class="fa fa-question-circle"></i> Are you sure you want to log-out?</div>
+                        <div class="modal-footer center">
+                            <a href="#" data-dismiss="modal" style="color:white; font-weight: bold;float: left;background-color: darkred!important"class="btn">Cancel</a>
+                            <a href="/logout" style="color:white; font-weight: bold;background-color: coral!important"class="btn ">Logout</a>
+                        </div>
+                    </div>
             </div>
     </div>
     <div class="modal bs-example-modal-sm1" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-sm">
               <div class="modal-content">
-                <div class="modal-header" style="color:indianred"><h4>Cancel <i class="fa fa-lock"></i></h4></div>
-                <div class="modal-body"><i class="fa fa-question-circle"></i> Are you sure you want to calcel?</div>
-                <div class="modal-footer"><a ng-click="cancel()" style="color: black; font-weight: bold"class="btn btn-block">Ok</a></div>
+                <div class="modal-body text-center" style="padding: 50px 0 50px 0"><i class="fa fa-question-circle"></i> Do you want to cancel ?</div>
+                <div class="modal-footer">
+                    <a data-dismiss="modal" style="color:white; font-weight: bold;background-color: darkred!important; float:left"class="btn ">NO</a>
+                    <a ng-click="cancel()" style="color:white; font-weight: bold;background-color: coral!important"class="btn ">Yes</a>
+                </div>
               </div>
             </div>
     </div>

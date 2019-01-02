@@ -110,7 +110,7 @@ input[readonly] {
 }
 .btn-block {
   border: none;
-  background-color: rgb(255, 217, 0)!important;
+  background-color: coral!important;
 }
 
 #change-button {
@@ -148,9 +148,35 @@ input[readonly] {
 }
 
 #btnEdit:hover {
-  background-color: #D2691E!important;
+  background-color: wheat!important;
 }
 
 .input-detailMovie {
   display: none;
+}
+
+.btn-sm:hover {
+  background-color: wheat!important;
+}
+
+footer a {
+  color: white;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: none;
+  color: white;
+}
+
+a {
+  text-decoration: none;
+}
+
+#eventForShow:hover {
+  background-color: wheat!important;
+}
+
+#btnChangePass:hover{
+  color: coral!important;
 }

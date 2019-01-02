@@ -1,8 +1,8 @@
 var app = angular.module('Movie')
 app.controller('detailController', ['$http', '$scope', 'apiService', function ($http, $scope, apiService) {
+    $scope.genres = ['Action', 'Horror', 'Romantic']
     function checkAuthor (author) {
         var email = document.getElementById("email").innerHTML;
-        
         
         if(email === author.email) {
             var btnUpdate = document.getElementById("btnUpdate");
@@ -37,7 +37,10 @@ app.controller('detailController', ['$http', '$scope', 'apiService', function ($
             if (!error) {
                 var formData = new FormData
                 var id = document.getElementById("id").innerHTML
-
+                var date = $("#datepicker").datepicker('getDate')
+                $scope.detailMovie.date = {}
+                var timestamp = Math.floor( date.getTime());
+                $scope.detailMovie.date = timestamp;
                 var file = $('#files')[0].files[0];
                 for (key in $scope.detailMovie) {
                     formData.append(key, $scope.detailMovie[key])

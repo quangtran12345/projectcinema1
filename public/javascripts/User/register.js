@@ -3,13 +3,13 @@ angular.module('Movie', [])
         $scope.submit = function () {
             var error = false;
             if (!$scope.email) {
-                alert('Input your email please !')
+                alert('Input your email please!')
                 error = true
             } else if (!$scope.password) {
-                alert('Input your password !')
+                alert('Input your password!')
                 error = true
             } else if ($scope.password.length < 6) {
-                alert('Password must more five characters !')
+                alert('Password must more five characters!')
                 error = true
             } else if ($scope.password !== $scope.confirm) {
                 alert('Password is not match!')

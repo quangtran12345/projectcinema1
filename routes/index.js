@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-
 var authorUser = require('../api/controller/authorUser')
 var userController = require('../api/controller/userController')
 /* GET home page. */

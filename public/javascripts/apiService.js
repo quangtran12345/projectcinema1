@@ -19,8 +19,16 @@ angular.module('Movie',[]).factory('apiService',['$http',function($http){
 
         deleteMovie: function(id) {
             return $http.delete("/api/movie/delete/" + id)
+        },
+
+        searchMovie: function(searchValue) {
+            return $http.get("/api/movie/search/" + searchValue)
+        },
+
+        changePassword: function(data) {
+            return $http.post("/api/user/changePass", data)
         }
-        //Create User
+        //Create User 
         // createUser: function (formData) {
         //     return $http.post('/api/movie/create', formData, {
         //             transformRequest: angular.identity,

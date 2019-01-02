@@ -15,10 +15,11 @@
     <%= title %>
   </title>
   <link rel='stylesheet' href='/stylesheets/style.css' />
+
   <link rel="icon" type="image/*" href="../images/video-play.png">
 </head>
 
-<body ng-controller="listController">
+<body ng-controller="listController" style="margin:0;padding:0">
   <input type="hidden" value="<%= token %>" ng-model="token" />
   <header>
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -35,6 +36,14 @@
 
           </ul>
           <ul class="nav navbar-nav navbar-right">
+            <li>
+              <input id="searchValue" style="display: inline-block;margin-top: 13px" class="form-control" type="text"  placeholder="Search">  
+            </li>
+            <li style="padding: 13px">
+                <button ng-click="search()" class="btn" style="display: inline; color: coral; background-color: white;">
+                  Search
+                </button>
+              </li>
             <% if(email.email) { %>
             <li><a href="/profile" style="color: white; font: 20px bold "><%= email.email %></a></li>
             <% } %>
@@ -60,10 +69,10 @@
       </div><!-- /.container-fluid -->
     </nav>
   </header>
-  <section >
+  <section style="padding: 50px">
     <div class="row" data-ng-init="items()">
       <div class="col-sm-6 col-md-3" ng-repeat="item in listFilm">
-        <a style="color:black;text-decoration: none" href="/detail/{{item._id}}">
+        <a style="color:black;text-decoration: none" href="/detail/{{item.name}}-{{item._id}}">
         <div class="thumbnail" style="background-color: white;">
           <img ng-src="{{item.image}}"  class="img" alt="Anh Phim" style="object-fit: cover; max-height: 400px;min-height: 400px">
           <div class="caption mh-100"  style="min-height: 200px!important">
@@ -91,13 +100,25 @@
     <div class="modal bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
-          <div class="modal-header" style="color:indianred"><h4>Logout <i class="fa fa-lock"></i></h4></div>
-          <div class="modal-body"><i class="fa fa-question-circle"></i> Are you sure you want to log-out?</div>
-          <div class="modal-footer"><a ng-click="logout()" style="color: black; font-weight: bold"class="btn btn-block">Logout</a></div>
+            <div class="modal-body text-center" style="padding: 50px 0 50px 0;"><i class="fa fa-question-circle"></i> Are you sure you want to log-out?</div>
+            <div class="modal-footer center">
+              <a href="#" data-dismiss="modal" style="color:white; font-weight: bold;float: left;background-color: darkred!important"class="btn">Cancel</a>
+              <a href="/logout" style="color:white; font-weight: bold;background-color: coral!important"class="btn ">Logout</a>
+            </div>
         </div>
       </div>
     </div>
   </section>
+ <!-- Footer -->
+ <footer id="myFooter" style="background-color:coral; color: white; padding: 50px">
+  <div class="container">
+      <div class="row">
+        <div class="footer-copyright text-center py-3">© 2018 Copyright:
+          <a href="/"> David Cinema</a>
+        </div>
+      </div>
+  </div>
+</footer>
 </body>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

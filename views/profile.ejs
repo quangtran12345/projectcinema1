@@ -18,7 +18,7 @@
     <link rel="icon" type="image/*" href="/images/video-play.png">
 </head>
 
-<body ng-controller="profileController">
+<body ng-controller="profileController" style="padding:0; margin: 0">
     <input type="hidden" id="token" value="<%= token %>" />
     <header>
         <nav class="navbar navbar-default navbar-fixed-top">
@@ -49,17 +49,17 @@
             </div><!-- /.container-fluid -->
         </nav>
     </header>
-    <section style="margin-top: 50px; width: 82%; padding-left: 2%" class="col-md-7 col-md-offset-1">
+    <section style="margin-top: 50px; width: 82%; padding-left: 2%; min-height: 498px" class="col-md-7 col-md-offset-1">
         <div class="row panel panel-warning " style="margin-top:2%;">
             <div class="panel-heading lead ">
                 <div class="row">
-                    <div class="col-lg-8 col-md-8"><i class="fas fa-user"></i> My Profile</div>
+                    <div class="col-lg-8 col-md-8"><i class="fas fa-user" style="padding-top: 10px"></i> My Profile</div>
                     <div class="col-lg-4 col-md-4 text-right">
                         <div class="btn-group text-center">
-                            <a onclick="showFormEdit()" id="eventForShow" style="background-color: coral!important"
-                                class="btn btn-sm "><i style="color: white" class="fa fa-edit fa-1x"></i></a>
-                            <a onclick="cancelFormEdit()" id="eventForClose" style="background-color: coral!important; display: none"
-                                class="btn btn-sm "><i style="color: white" class="fa fa-edit fa-1x"></i></a>
+                            <a onclick="showFormEdit()" style="background-color: white;" id="eventForShow"
+                                class="btn btn-sm"><i style="color: #8a6d3b;" class="fa fa-edit fa-1x"></i></a>
+                            <a onclick="cancelFormEdit()" id="eventForClose" style=" display: none"
+                                class="btn btn-sm"><i style="color: #8a6d3b" class="fa fa-edit fa-1x"></i></a>
                         </div>
                     </div>
                 </div>
@@ -124,10 +124,10 @@
                                                         <td class="text-success"><i class="fas fa-calendar-check"></i>
                                                             Birthday</td>
                                                         <td class="label-userprofile" style="word-break:break-word">{{userProfile.birthday}}</td>
-                                                        <td class="input-userprofile"><input ng-model="userProfile.birthday"
-                                                                ng-value="userProfile.birthday" type="text" class="form-control"
-                                                                placeholder="Birthday"> </td>
-
+                                                        <td class="input-userprofile" >
+                                                            <input  ng-model="userProfile.birthday" ng-value="userProfile.birthday | date: 'dd/MM/yyyy'" type="text" class="form-control" id="datepicker"
+                                                            ng-value="userProfile.birthday" aria-invalid="false" aria-required="true">
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td class="text-success"><i class="fa fa-book"></i> Description</td>
@@ -140,9 +140,12 @@
                                                 </tbody>
                                             </table>
                                         </div>
+                                        <% if(email.email) { %>
+                                            <a  data-toggle="modal" data-target=".bs-changePass-modal-sm" id="btnChangePass" style="color:black; background-color: coral; color: white" id="eventForClose" class="btn btn-sm">Change Password</a>
+                                            <% } %>
                                         <div class="col-xs-12" style="text-align: center">
                                             <button type="button" id="btnCancel" onclick="cancelFormEdit()" class="btn">Cancel</button>
-                                            <button type="button" id="btnEdit" data-toggle="modal" data-target=".bs-example-modal-sm"
+                                            <button type="button" id="btnEdit" ng-click="update()"
                                                 style="background-color: coral; color: white" class="btn">Update</button>
                                         </div>
                                     </div>
@@ -156,35 +159,59 @@
             </div>
         </div>
     </section>
-    <div class="modal bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header" style="color:indianred">
-                    <h4>Notice <i class="fas fa-exclamation"></i></h4>
-                </div>
-                <div class="modal-body"><i class="fa fa-question-circle"></i> Are you sure you want to update ?</div>
-                <div class="modal-footer" ng-click="update()"><a style="color: black; font-weight: bold" class="btn btn-block">Update</a></div>
+    <footer id="myFooter" style="background-color:coral; color: white; padding: 50px; clear: both;">
+        <div class="container">
+            <div class="row">
+              <div class="footer-copyright text-center py-3">© 2018 Copyright:
+                <a href="/"> David Cinema</a>
+              </div>
             </div>
         </div>
-    </div>
+      </footer>
     <div class="modal bs-example-modal-sm1" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
-                <div class="modal-header" style="color:indianred">
-                    <h4 style="font-weight: bold">Alert <i class="fas fa-exclamation"></i></h4>
+                    <div class="modal-body text-center" style="padding: 50px 0 50px 0;"><i class="fa fa-question-circle"></i> Are you sure you want to log-out?</div>
+                    <div class="modal-footer center">
+                      <a href="#" data-dismiss="modal" style="color:white; font-weight: bold;float: left;background-color: darkred!important"class="btn">Cancel</a>
+                      <a href="/logout" style="color:white; font-weight: bold;background-color: coral!important"class="btn ">Logout</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal bs-changePass-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header text-center" style="color:coral">
+                    <h4 style="font-weight: bold">Change Password</h4>
                 </div>
-                <div class="modal-body"><i class="fa fa-question-circle"></i> Are you sure you want to Sign-out ?</div>
-                <div class="modal-footer"><a href="/logout" style="color: black; font-weight: bold" class="btn btn-block">Ok</a></div>
+                <div class="modal-body ">
+                    <h5 style="color: coral; font-weight: bold">Old Password</h5>
+                    <input ng-model="oldPassword" type="password" class="form-control"
+                        placeholder="old password">
+                    <h5 style="color: coral; font-weight: bold">New Password <span class="label label-warning">New</span></h5>
+                    <input ng-model="newPassword" type="password" class="form-control"
+                        placeholder="password">
+                    <h5 style="color: coral; font-weight: bold">Confirm Password <span class="label label-warning">New</span></h5>
+                    <input ng-model="confirmPassword" type="password"  class="form-control"
+                        placeholder="password">
+                </div>
+                    <div class="modal-footer center">
+                        <a href="#" data-dismiss="modal" style="color:white; font-weight: bold;float: left;background-color: darkred!important"class="btn">Cancel</a>
+                        <a ng-click="changePassword()" style="color:white; font-weight: bold;background-color: coral!important"class="btn ">Change</a>
+                </div>
             </div>
         </div>
     </div>
 </body>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
     crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <script src="/javascripts/apiService.js"></script>
 <script src="/javascripts/User/profile.js"></script>
+
 <script>
     document.getElementById("files").onchange = function () {
         var reader = new FileReader();
@@ -239,7 +266,12 @@
         eventForShow.style.display = "block";
     }
 </script>
-
+<script>
+    $(function () {
+        $("#datepicker").datepicker({ dateFormat: 'dd-mm-yy' });
+        $("#datepicker").datepicker().datepicker("setDate", new Date());
+    })
+</script>
 </html>
 <% } %>
 <% if(!email.email) { %>
