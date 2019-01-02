@@ -1,11 +1,13 @@
 var app = angular.module('Movie')
 app.controller('listController',['$scope','apiService', function($scope,apiService){
+    $scope.types =["Choose for genre","Action","Horror","Romantic",]
+    
     $scope.items = function () {
         apiService.listMovie().then (function(res) {
             var movies = res.data.movies
             $scope.listFilm = movies
             $scope.listFilmTemp = movies
-        }).catch(function(res){
+        }).catch(function(res   ){
             console.log(res)
         })
          
@@ -17,6 +19,16 @@ app.controller('listController',['$scope','apiService', function($scope,apiServi
             console.log(res)
         })
     }
+
+    $scope.orderBy = function () {
+        $scope.dataOrderby = ""
+        if($scope.dataSearch !== "Choose for genre") {
+            $scope.dataOrderby = $scope.dataSearch
+        } else {
+            $scope.dataOrderby = ""
+        }
+    }
+
     // function parseVietnamese(movieName) {
     //     movieName = movieName.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
     //     movieName = movieName.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");

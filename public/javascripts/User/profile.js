@@ -54,6 +54,7 @@ app.controller('profileController', ['$http', '$scope', 'apiService', function (
             error = true;
         } else if (oldPassword.length < 6 || newPassword.length < 6 || confirmPassword.length < 6) {
             alert("Passwords must be at least 6 characters!")
+            error = true;
         } else if (newPassword !== confirmPassword) {
             alert("New password is not maching!")
             error = true;

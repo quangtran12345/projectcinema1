@@ -3,9 +3,14 @@ var User = mongoose.model('User')
 var secretCode = require('../properties')
 var jwt = require('jsonwebtoken')
 
-async function createUser(data) {
+async function createUser(data, session) {
     let user = new User(data)
     user = await user.save()
+    var token = jwt.sign({
+        id: user.id,
+        email: user.email,
+    }, secretCode.constant.secretCode);
+    session.token = token
     return { user: user }
 }
 

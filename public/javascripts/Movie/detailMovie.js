@@ -1,6 +1,6 @@
 var app = angular.module('Movie')
 app.controller('detailController', ['$http', '$scope', 'apiService', function ($http, $scope, apiService) {
-    $scope.genres = ['Action', 'Horror', 'Romantic']
+    $scope.genres = ['Choose for genre','Action', 'Horror', 'Romantic']
     function checkAuthor (author) {
         var email = document.getElementById("email").innerHTML;
         

@@ -6,9 +6,8 @@ var jwt = require('jsonwebtoken');
 
 router.post("/createUser", async function (req, res, next) {
     try {
-        const response = await userController.createUser(req.body);
-        var token = jwt.sign({ email: req.body.email }, 'vvv');
-        req.session.token = token
+        var session = req.session
+        const response = await userController.createUser(req.body,session);
         return res.send(response);
     } catch (Error) {
         var a = Error.message.search('duplicate')
