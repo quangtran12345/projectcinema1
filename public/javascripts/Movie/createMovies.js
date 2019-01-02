@@ -1,34 +1,35 @@
-angular.module('Movie').controller('createController', ['$http', '$scope','apiService', function ($http,$scope,apiService) {
+angular.module('Movie').controller('createController', ['$http', '$scope', 'apiService', function ($http, $scope, apiService) {
     $scope.genres = ['Action', 'Horror', 'Romantic']
-    
+
     function validateValue() {
         var error = false
-        if(!$scope.dataMovies["name"]) {
+        if (!$scope.dataMovies["name"]) {
             error = true
             alert("Input your movie's name")
         }
         return error
     }
+
     
     $scope.submit = function () {
         var error = validateValue(error)
-        
-        if(!error) {
+
+        if (!error) {
             var formData = new FormData
             var email = document.getElementById("email").innerHTML
             var date = $("#datepicker").datepicker('getDate')
             $scope.dates = {}
-            var timestamp = Math.floor( date.getTime());
+            var timestamp = Math.floor(date.getTime());
             $scope.dates = timestamp;
             var file = $('#files')[0].files[0];
             for (key in $scope.dataMovies) {
                 formData.append(key, $scope.dataMovies[key])
             }
-            if(email) {
+            if (email) {
                 formData.append('email', email)
             }
             formData.append('date', $scope.dates)
-            if(file) {
+            if (file) {
                 formData.append('image', file)
             }
             $http.post('/api/movie/create', formData, {
@@ -36,11 +37,11 @@ angular.module('Movie').controller('createController', ['$http', '$scope','apiSe
                 headers: {
                     'Content-Type': undefined
                 }
-            }).then(function() {
+            }).then(function () {
                 location.href = "/"
             }).catch(function (res) {
                 console.log(res)
-            }) 
+            })
         }
     }
 

@@ -48,7 +48,7 @@
                 <div class="col-md-4 col-md-offset-4" style="border: 1px solid coral; border-radius: 10px;">
                     <h1 style="text-align: center; color: coral; font-family: Georgia, 'Times New Roman', Times, serif">Login
                         Page</h1>
-                    <form class="form" ng-submit="submit()">
+                    <form class="form" >
                         <div class="form-group">
                             <label for="exampleInputEmail1" style="color: coral">Email address</label>
                             <input type="email" ng-model="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
@@ -58,7 +58,8 @@
                             <input type="password" ng-model="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                         </div>
                         <div class="form-group" style="text-align: center;">
-                            <button type="submit" class="btn" id="register-button">Login</button>
+                            <a href="/" style="color:coral; cursor: pointer;">Forgot Password</a>
+                            <button type="submit" ng-click="submit()" class="btn" id="register-button">Login</button>
                         </div>
                     </form>
                 </div>

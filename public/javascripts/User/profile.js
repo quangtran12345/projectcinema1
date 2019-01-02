@@ -15,9 +15,14 @@ app.controller('profileController', ['$http', '$scope', 'apiService', function (
         var formData = new FormData
         var token = document.getElementById("token").value
         var file = $('#files')[0].files[0];
+        var date = $("#datepicker").datepicker('getDate')
+        $scope.userProfile.birthday = {}
+        var timestamp = Math.floor(date.getTime());
+        $scope.userProfile.birthday = timestamp;
         for (key in $scope.userProfile) {
             formData.append(key, $scope.userProfile[key])
         }
+        
         if (file) {
             formData.append('image', file)
         }
@@ -61,19 +66,19 @@ app.controller('profileController', ['$http', '$scope', 'apiService', function (
         var newPassword = $scope.newPassword
         var confirmPassword = $scope.confirmPassword
         var error = validatePassword(token, oldPassword, newPassword, confirmPassword)
-        if(!error) {
+        if (!error) {
             var data = {
-                    token: token,
-                    oldPassword: oldPassword,
-                    newPassword: newPassword,
-                    confirmPassword: confirmPassword
-                }
-                
-                apiService.changePassword(data).then(function (res) {
-                    alert(res.data.message)
-                    location.href = "/profile"
-                }).catch(function (error) {
-                    alert(error.data)
+                token: token,
+                oldPassword: oldPassword,
+                newPassword: newPassword,
+                confirmPassword: confirmPassword
+            }
+
+            apiService.changePassword(data).then(function (res) {
+                alert(res.data.message)
+                location.href = "/profile"
+            }).catch(function (error) {
+                alert(error.data)
             })
         }
     }
