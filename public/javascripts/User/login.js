@@ -7,7 +7,13 @@ angular.module('Movie', []).controller('loginController', function ($scope, $htt
         var error = false;
         if (!$scope.email) {
             error = true;
-            alert('Input your email')
+            $.notify({
+                // options
+                message: 'Hello World' 
+            },{
+                // settings
+                type: 'danger'
+            });
         } else if (!$scope.password) {
             error = true;
             alert('Input your password')
