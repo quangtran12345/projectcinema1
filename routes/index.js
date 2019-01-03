@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var authorUser = require('../api/controller/authorUser')
 var userController = require('../api/controller/userController')
+
 /* GET home page. */
 
 router.get('/', async function (req, res, next) {
@@ -14,11 +15,11 @@ router.get('/', async function (req, res, next) {
   res.render('index', { title: 'Home', email: email, token: token });
 });
 router.get('/reg', function (req, res, next) {
-  res.render('register', { title: 'Sign Up' });
+  res.render('register', { title: 'Sign Up', email: "" });
 });
 
 router.get('/login', function (req, res, next) {
-  res.render('login', { title: 'Login', });
+  res.render('login', { title: 'Login', email: ""});
 });
 
 router.get('/create', async function (req, res, next) {
@@ -33,13 +34,13 @@ router.get('/create', async function (req, res, next) {
   }
 });
 
-router.get('/logout',function (req, res, next) {
-  if(req.session.token) {
+router.get('/logout', function (req, res, next) {
+  if (req.session.token) {
     userController.userLogout(req);
   }
   next();
 }, function (req, res, next) {
-  res.render('login', { title: 'Logout' })
+  res.render('login', { title: 'Logout', email: ""})
 })
 
 router.get('/detail/:id', async function (req, res, next) {
@@ -66,6 +67,16 @@ router.get('/modify/:token', async function (req, res, next) {
   var token = req.params.token
   var user = await authorUser.authorizationUser(req, res, next, token);
   res.render('profile', { title: 'Infor', user: user.user, token: token })
+})
+
+router.get('/forgot',async function (req, res, next) {
+  res.render('forgot', { title: 'Forgot', email: ""})
+})
+
+router.get('/api/user/reset/:token', async function (req, res, next) {
+  var token = req.params.token
+  var password = await userController.resetPassword(token)
+  res.render('password', {title: 'Password', password: password || "",  email: ""})
 })
 
 module.exports = router;

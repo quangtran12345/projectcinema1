@@ -7,7 +7,7 @@ var jwt = require('jsonwebtoken');
 router.post("/createUser", async function (req, res, next) {
     try {
         var session = req.session
-        const response = await userController.createUser(req.body,session);
+        const response = await userController.createUser(req.body, session);
         return res.send(response);
     } catch (Error) {
         var a = Error.message.search('duplicate')
@@ -49,7 +49,7 @@ router.put("/userUpdate", fileUpload(), async function (req, res, next) {
             var file = req.files.image
             file.mv('../projectcinema1/public/images/' + fileName)
         }
-        if(fileName) {
+        if (fileName) {
             fileName = "/images/" + fileName
         }
         await userController.userUpdate(req, fileName)
@@ -65,10 +65,30 @@ router.post("/changePass", async function (req, res, next) {
         var oldPassword = req.body.oldPassword
         var newPassword = req.body.newPassword
         var sessionToken = req.session.token
-        const response = await userController.changePassword(token,oldPassword,newPassword, sessionToken)
+        const response = await userController.changePassword(token, oldPassword, newPassword, sessionToken)
         return res.send(response)
     } catch (error) {
         return res.status(500).send(error.message)
+    }
+})
+
+router.post("/sendMail", async function (req, res, next) {
+    try {
+        var email = req.body.email
+        var response = await userController.sendResetPassword(email, req.headers.host)
+        return res.send({message:"We sent you a mail, please check your email for detail!"});
+    }catch(error) {
+        return res.status(500).send(error.message)
+    }
+})
+
+router.post("/reset/:token", async function (req, res, next) {
+    try {
+        var token = req.params.token
+        var response = await userController.resetPassword(token)
+        return response;
+    }catch(error) {
+        res.status(500).send(error.message)
     }
 })
 module.exports = router

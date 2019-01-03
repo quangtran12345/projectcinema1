@@ -1,60 +1,9 @@
 <!DOCTYPE html>
 <html ng-app="Movie" >
 
-<head >
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-        crossorigin="anonymous">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-        crossorigin="anonymous">
-    <title>
-        <%= title %>
-    </title>
-
-    <link rel="icon" type="image/*" href="/images/video-play.png">
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-</head>
-
+<% include ../layout/head %>
 <body ng-controller="detailController" style="margin: 0; padding: 0">
-    <header>
-        <nav class="navbar navbar-default navbar-fixed-top" >
-            <p id="id" style="display: none"><%= id  %></p>
-            <div class="container-fluid" style="background-color: coral;">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="/"><img src="/images/video-play.png" width="25px" height="25px" /></a>
-                </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li id="title-word"><a href="/" style="color:white; font: 25px bold;">David Cinema<span class="sr-only">(current)</span></a></li>
-                    </ul>
-                    
-                    <ul class="nav navbar-nav navbar-right">
-                        <% if(email.email) { %>
-                        <li><a href="/profile" style="color: white; font: 20px bold " id="email"><%= email.email %></a></li>                   
-                        <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-sm" style="color:white; font: 20px bold;"><span class="glyphicon glyphicon-log-in"></span>
-                                Logout</a></li>
-                        <% } %>
-                        <% if(!email.email) { %>
-                            <li><a href="/login" style="color:white; font: 20px bold;"><span class="glyphicon glyphicon-log-in"></span>
-                                Login</a></li>
-                        <% } %>
-                        <% if(!email.email) { %>
-                            <li><a href="/reg" style="color:white; font: 20px bold  ; "> <i class="fa fa-user-plus" aria-hidden="true"></i>
-                                Sign Up</a></li>
-                            <% } %>
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
-    </header>
+    <% include ../layout/header %>
     <section style="margin-top: 75px; max-width: 98%; padding-left: 2%; min-height: 500px">
     <input type="hidden" id="author" value="{{detailMovie.email}}" >  
     <div class="row panel panel-warning" style="margin-top:2%;">
@@ -152,15 +101,7 @@
         </div>
     </div>
 </section>
-<footer id="myFooter" style="background-color:coral; color: white;padding: 50px; margin-top: 56px;">
-    <div class="container" >
-        <div class="row">
-          <div class="footer-copyright text-center py-3">© 2018 Copyright:
-            <a href="/"> David Cinema</a>
-          </div>
-        </div>
-    </div>
-  </footer>
+<% include ../layout/footer %>
 <div class="modal bs-delete-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">

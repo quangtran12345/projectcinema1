@@ -27,8 +27,12 @@ angular.module('Movie',[]).factory('apiService',['$http',function($http){
 
         changePassword: function(data) {
             return $http.post("/api/user/changePass", data)
-        }
-        //Create User 
+        },
+        sendMailResetPass: function(data) {
+            return $http.post("/api/user/sendMail", data)
+        },
+
+        //Create User
         // createUser: function (formData) {
         //     return $http.post('/api/movie/create', formData, {
         //             transformRequest: angular.identity,
