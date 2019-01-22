@@ -35,28 +35,66 @@ app.controller('profileController', ['$http', '$scope', 'apiService', function (
         }).then(function () {
             location.href = "/profile"
         }).catch(function (res) {
-            alert(res.data)
+            $.notify({
+                icon: 'glyphicon glyphicon-warning-sign',
+                message: res.data,
+                z_index: 999999,
+            })
         })
     }
     function validatePassword(token, oldPassword, newPassword, confirmPassword) {
         var error = false
         if (!token) {
-            alert("Please Login!")
+            $.notify({
+                icon: 'glyphicon glyphicon-warning-sign',
+                message: "Please Login!",
+            },{
+                z_index: 99999999999999,
+            })
             error = true;
         } else if (!oldPassword) {
-            alert("Old password can't empty!")
+            $.notify({
+                icon: 'glyphicon glyphicon-warning-sign',
+                message: "Old password can't empty!",
+            },{
+                z_index: 99999999999999,
+            })
             error = true;
         } else if (!newPassword) {
-            alert("New password can't empty!")
+            $.notify({
+                icon: 'glyphicon glyphicon-warning-sign',
+                message: "New password can't empty!",
+            },{
+                z_index: 99999999999999,
+            })
             error = true;
         } else if (!confirmPassword) {
-            alert("Confirm password can't empty!")
+            $.notify({
+                icon: 'glyphicon glyphicon-warning-sign',
+                message: "Confirm password can't empty!",
+            },{
+                z_index: 99999999999999,
+            })
+            
             error = true;
         } else if (oldPassword.length < 6 || newPassword.length < 6 || confirmPassword.length < 6) {
-            alert("Passwords must be at least 6 characters!")
+            $.notify({
+                icon: 'glyphicon glyphicon-warning-sign',
+                message: "Passwords must be at least 6 characters!",
+               
+            },{
+                z_index: 99999999999999,
+            })
+            
             error = true;
         } else if (newPassword !== confirmPassword) {
-            alert("New password is not maching!")
+            $.notify({
+                icon: 'glyphicon glyphicon-warning-sign',
+                message: "New password is not maching!",
+               
+            },{
+                z_index: 99999999999999,
+            })
             error = true;
         }
         return error
@@ -76,10 +114,19 @@ app.controller('profileController', ['$http', '$scope', 'apiService', function (
             }
 
             apiService.changePassword(data).then(function (res) {
-                alert(res.data.message)
+                
+                $.notify({
+                    icon: 'glyphicon glyphicon-warning-sign',
+                    message: res.data.message,
+                    z_index: 999999,
+                })
                 location.href = "/profile"
             }).catch(function (error) {
-                alert(error.data)
+                $.notify({
+                    icon: 'glyphicon glyphicon-warning-sign',
+                    message: error.data,
+                    z_index: 999999,
+                })
             })
         }
     }

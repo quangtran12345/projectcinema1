@@ -3,6 +3,7 @@ var router = express.Router()
 var fileUpload = require('express-fileupload')
 var userController = require('../controller/userController')
 var jwt = require('jsonwebtoken');
+const { OAuth2Client } = require('google-auth-library');
 
 router.post("/createUser", async function (req, res, next) {
     try {
@@ -76,8 +77,8 @@ router.post("/sendMail", async function (req, res, next) {
     try {
         var email = req.body.email
         var response = await userController.sendResetPassword(email, req.headers.host)
-        return res.send({message:"We sent you a mail, please check your email for detail!"});
-    }catch(error) {
+        return res.send({ message: "We sent you a mail, please check your email for detail!" });
+    } catch (error) {
         return res.status(500).send(error.message)
     }
 })
@@ -87,8 +88,27 @@ router.post("/reset/:token", async function (req, res, next) {
         var token = req.params.token
         var response = await userController.resetPassword(token)
         return response;
-    }catch(error) {
+    } catch (error) {
         res.status(500).send(error.message)
     }
 })
+
+router.post("/loginGoogle", async function (req, res, next) {
+    try {
+       
+        var user = {
+            email:req.body['user[email]'],
+            name:req.body['user[name]'],
+            image:req.body['user[image]'],
+        } 
+        
+        var response = await userController.loginGoogle(req,user)
+        return res.send(response);
+    } catch (error) {
+        console.log(error.message)
+        return res.status(500).send(error.message)
+    }
+})
+
+
 module.exports = router

@@ -7,7 +7,11 @@ app.controller('sendMailController',['$scope', 'apiService', function ($scope, a
         var error = false;
         if (!$scope.email) {
             error = true;
-            alert('Input your email')
+            $.notify({
+                icon: 'glyphicon glyphicon-warning-sign',
+                message: 'Input your email',
+                z_index: 999999,
+            })
         }
         return error
     }
@@ -18,10 +22,18 @@ app.controller('sendMailController',['$scope', 'apiService', function ($scope, a
                 email: $scope.email,
             }
             apiService.sendMailResetPass(data).then(function (res) {
-                alert(res.data.message)
+                $.notify({
+                    icon: 'glyphicon glyphicon-warning-sign',
+                    message: res.data.message,
+                    z_index: 999999,
+                })
                 location.href = "/login"
             }).catch(function (error) {
-                alert(error.data)
+                $.notify({
+                    icon: 'glyphicon glyphicon-warning-sign',
+                    message: error.data,
+                    z_index: 999999,
+                })
             })
         }
     }

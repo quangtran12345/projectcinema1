@@ -5,7 +5,11 @@ angular.module('Movie').controller('createController', ['$http', '$scope', 'apiS
         var error = false
         if (!$scope.dataMovies["name"]) {
             error = true
-            alert("Input your movie's name")
+            $.notify({
+                icon: 'glyphicon glyphicon-warning-sign',
+                message: "Input your movie's name",
+                z_index: 999999,
+            })
         }
         return error
     }
@@ -40,7 +44,11 @@ angular.module('Movie').controller('createController', ['$http', '$scope', 'apiS
             }).then(function () {
                 location.href = "/"
             }).catch(function (res) {
-                console.log(res)
+                $.notify({
+                    icon: 'glyphicon glyphicon-warning-sign',
+                    message: res.data,
+                    z_index: 999999,
+                })
             })
         }
     }

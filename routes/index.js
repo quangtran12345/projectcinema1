@@ -35,11 +35,6 @@ router.get('/create', async function (req, res, next) {
 });
 
 router.get('/logout', function (req, res, next) {
-  if (req.session.token) {
-    userController.userLogout(req);
-  }
-  next();
-}, function (req, res, next) {
   res.render('login', { title: 'Logout', email: ""})
 })
 
@@ -78,5 +73,6 @@ router.get('/api/user/reset/:token', async function (req, res, next) {
   var password = await userController.resetPassword(token)
   res.render('password', {title: 'Password', password: password || "",  email: ""})
 })
+
 
 module.exports = router;

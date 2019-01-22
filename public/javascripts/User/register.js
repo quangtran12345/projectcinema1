@@ -3,16 +3,32 @@ angular.module('Movie', [])
         $scope.submit = function () {
             var error = false;
             if (!$scope.email) {
-                alert('Input your email please!')
+                $.notify({
+                    icon: 'glyphicon glyphicon-warning-sign',
+                    message: 'Input your email please!',
+                    z_index: 999999,
+                })
                 error = true
             } else if (!$scope.password) {
-                alert('Input your password!')
+                $.notify({
+                    icon: 'glyphicon glyphicon-warning-sign',
+                    message: 'Input your password!',
+                    z_index: 999999,
+                })
                 error = true
             } else if ($scope.password.length < 6) {
-                alert('Password must more five characters!')
+                $.notify({
+                    icon: 'glyphicon glyphicon-warning-sign',
+                    message: 'Password must more five characters!',
+                    z_index: 999999,
+                })
                 error = true
             } else if ($scope.password !== $scope.confirm) {
-                alert('Password is not match!')
+                $.notify({
+                    icon: 'glyphicon glyphicon-warning-sign',
+                    message: 'Password is not match!',
+                    z_index: 999999,
+                })
                 error = true
             } else {
                 const data = {
@@ -25,8 +41,11 @@ angular.module('Movie', [])
                 }).catch(function (res) {
                     $scope.password = ''
                     $scope.confirm = ''
-                    $scope.email = ''
-                    alert(res.data.message)
+                    $.notify({
+                        icon: 'glyphicon glyphicon-warning-sign',
+                        message: res.data.message,
+                        z_index: 999999,
+                    })
                 })
             }
             if (error) {

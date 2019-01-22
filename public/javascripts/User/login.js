@@ -8,15 +8,18 @@ angular.module('Movie', []).controller('loginController', function ($scope, $htt
         if (!$scope.email) {
             error = true;
             $.notify({
-                // options
-                message: 'Hello World' 
-            },{
-                // settings
-                type: 'danger'
-            });
+                icon: 'glyphicon glyphicon-warning-sign',
+                message: "Input your email!",
+                z_index: 999999,
+            })
+            
         } else if (!$scope.password) {
             error = true;
-            alert('Input your password')
+            $.notify({
+                icon: 'glyphicon glyphicon-warning-sign',
+                message: "Input your password",
+                z_index: 999999,
+            })
         }
         return error
     }
@@ -32,8 +35,15 @@ angular.module('Movie', []).controller('loginController', function ($scope, $htt
             }).catch(function (error) {
                 $scope.email = ''
                 $scope.password = ''
-                alert(error.data)
+                $.notify({
+                    icon: 'glyphicon glyphicon-warning-sign',
+                    message: error.data,
+                    z_index: 999999,
+                })
             })
         }
     }
+    
+    
+    
 })

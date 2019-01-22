@@ -10,6 +10,8 @@ require('./api/model/User')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./api/route/user');
 var movieRouter = require('./api/route/movie')
+var userRouter = require('./api/route/userRoute')
+var movieRoutes = require('./api/route/movieRoute')
 var app = express();
 
 //Connect MongoDB
@@ -38,8 +40,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/api/user', usersRouter);
 app.use('/api/movie',movieRouter)
-
-// catch 404 and forward to error handler
+app.use('/api/v1/auth', userRouter)
+app.use('/api/v1/movie', movieRoutes)
+// catch 404 and forard to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });

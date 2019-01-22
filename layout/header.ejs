@@ -29,7 +29,7 @@
               </li>
             <% } %>
             <% if(email.email) { %>
-            <li><a href="/profile" style="color: white; font: 20px bold "><%= email.email %></a></li>
+            <li><a href="/profile" id="email" style="color: white; font: 20px bold "><%= email.email %></a></li>
             <% } %>
             <% if(!email.email) { %>
             <li><a href="/reg" style="color:white; font: 20px bold  ; "> <i class="fa fa-user-plus" aria-hidden="true"></i>

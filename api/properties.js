@@ -4,6 +4,8 @@ const constant = {
     passAuth: "12345678aA.",
     service: "GMAIL"
 }
+
+
 module.exports = {
     constant : constant
 }

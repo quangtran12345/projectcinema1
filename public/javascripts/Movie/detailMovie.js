@@ -27,7 +27,11 @@ app.controller('detailController', ['$http', '$scope', 'apiService', function ($
         var error = false
         if (!$scope.detailMovie["name"]) {
             error = true
-            alert("Input your movie's name")
+            $.notify({
+                icon: 'glyphicon glyphicon-warning-sign',
+                message: "Input your movie's name",
+                z_index: 999999,
+            })
         }
         return error
     }
@@ -72,11 +76,19 @@ app.controller('detailController', ['$http', '$scope', 'apiService', function ($
             apiService.deleteMovie(id).then(function() {
                 location.href = "/"
             }).catch(function () {
-                alert("delete fail !")
+                $.notify({
+                    icon: 'glyphicon glyphicon-warning-sign',
+                    message: "delete fail!",
+                    z_index: 999999,
+                })
             })
 
         } else {
-            alert("You can't update for this movie.")
+            $.notify({
+                icon: 'glyphicon glyphicon-warning-sign',
+                message: "You can't update for this movie.",
+                z_index: 999999,
+            })
         }
     }
     $scope.showFormEdit = function () {
@@ -101,7 +113,11 @@ app.controller('detailController', ['$http', '$scope', 'apiService', function ($
             btnUpdate.style.display = "none";
             btnCancel1.style.display = "block";
         } else {
-            alert("You can't update for this movie.")
+            $.notify({
+                icon: 'glyphicon glyphicon-warning-sign',
+                message: "You can't update for this movie.",
+                z_index: 999999,
+            })
         }
     }
     $scope.cancelFormEdit = function () {

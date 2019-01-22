@@ -32,6 +32,18 @@ angular.module('Movie',[]).factory('apiService',['$http',function($http){
             return $http.post("/api/user/sendMail", data)
         },
 
+
+        loginGoogle: function(token) {
+            return $http.post("/api/user/loginGoogle", token).then(function () {
+                location.href = "/"
+            }).catch(function (error) {
+                $.notify({
+                    icon: 'glyphicon glyphicon-warning-sign',
+                    message: error.data
+                })
+            })   
+        }
+
         //Create User
         // createUser: function (formData) {
         //     return $http.post('/api/movie/create', formData, {
